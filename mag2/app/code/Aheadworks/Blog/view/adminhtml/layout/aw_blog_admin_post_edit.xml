@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aheadworks_Blog::css/blog-edit.css"/>
+        <css src="Aheadworks_Blog::css/tokenize.css"/>
+    </head>
+    <update handle="aw_blog_admin_default"/>
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Blog\Block\Adminhtml\Post\Edit" name="aw_blog_post_edit"/>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block class="Aheadworks\Blog\Block\Adminhtml\Post\Edit\Form\Js" template="post/edit/form/js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

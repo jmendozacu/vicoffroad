@@ -1,0 +1,38 @@
+<?php
+/* @var $block \Magento\Theme\Block\Html\Pager */
+?>
+<?php if ($block->getCollection()->getSize()): ?>
+    <?php if ($block->getLastPageNum() > 1): ?>
+<div class="pager">
+    <div class="pages">
+        <ol>
+        <?php if (!$block->isFirstPage()): ?>
+            <li><a href="<?php echo $block->getPreviousPageUrl() ?>" class="bt-page prev i-prev"><?php echo __('Previous Page') ?></a></li>
+        <?php endif; ?>
+        <?php if ($block->canShowFirst()): ?>
+            <li><a href="<?php echo $block->getFirstPageUrl() ?>" class="aw-blog-pagination__item aw-blog-pagination__page">1</a></li>
+        <?php endif; ?>
+        <?php if ($block->canShowPreviousJump()): ?>
+            <li><span class="aw-blog-pagination__item">...</span></li>
+        <?php endif; ?>
+        <?php foreach ($block->getFramePages() as $page): ?>
+            <?php if ($block->isPageCurrent($page)): ?>
+            <li class="current"><?php echo $page ?></li>
+            <?php else: ?>
+                <li><a href="<?php echo $block->getPageUrl($page) ?>" class="aw-blog-pagination__item aw-blog-pagination__page"><?php echo $page ?></a></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if ($block->canShowNextJump()): ?>
+            <li><span class="aw-blog-pagination__item">...</span></li>
+        <?php endif; ?>
+        <?php if ($block->canShowLast()): ?>
+            <li><a href="<?php echo $block->getLastPageUrl() ?>" class="aw-blog-pagination__item aw-blog-pagination__page"><?php echo $block->getLastPageNum() ?></a></li>
+        <?php endif; ?>
+        <?php if (!$block->isLastPage()): ?>
+            <li><a href="<?php echo $block->getNextPageUrl() ?>" class="bt-page next i-next"><?php echo __('Next Page') ?></a></li>
+        <?php endif; ?>
+        </ol>
+    </div>
+</div>
+    <?php endif; ?>
+<?php endif ?>

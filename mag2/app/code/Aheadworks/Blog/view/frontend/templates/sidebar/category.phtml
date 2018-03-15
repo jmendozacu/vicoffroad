@@ -1,0 +1,17 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\Sidebar\Recent */
+?>
+<?php
+    $categories = $block->getCategoryLeftCollection();
+    //print_r($categories->getData());exit;
+?>
+<?php if ($categories): ?>
+<strong class="title"><span>CATEGORIES</span></strong>
+        <ul class="items">
+            <?php foreach ($categories as $category): ?>
+            <li class="item">
+                <?php echo $block->getCategoryLinkHtml($category); ?>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+<?php endif; ?>

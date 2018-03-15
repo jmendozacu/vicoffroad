@@ -1,0 +1,43 @@
+<?php $layout = $block->getLayout(); ?>
+<?php
+    $html = $layout->renderElement('rewardpoimt.extrahint.earning');
+?>
+<?php /* @escapeNotVerified */ echo $html; ?>
+
+<div class="featured-text-block-2 delivery-option">
+        <h3>Delivery Options</h3>
+        <ul>
+            <?php if($block->getProduct()->getData('freeshipping') == 280):?>
+                <li>Free Standard Shipping*: $0.00</li>
+                
+                <?php 
+                    $pid = $block->getProduct()->getCategoryIds();
+                    if(in_array('13',$pid) || in_array('14',$pid) || in_array('48',$pid)):
+                ?>
+                <li>*Additional freight charges may apply to certain <a href="https://www.vicoffroad.com.au/delivery-shipping" target="_blank">remote areas</a></li>
+                <?php endif; ?>  
+
+
+            <?php endif; ?>
+
+            <!--
+            <?php if($block->getProduct()->getData('express_shipping')):?>
+                <li>Express Shipping: $<?php echo number_format($block->getProduct()->getData('express_shipping_rate'),2); ?></li>
+            <?php endif; ?>
+            <?php if($block->getProduct()->getData('large_item')):?>
+                <li>Free Standard Delivery: $<?php echo number_format($block->getProduct()->getData('large_freight'),2); ?></li>
+            <?php endif; ?>
+            -->
+        </ul>
+</div>
+<!-- END featured-text-block-1 -->
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product
+    //echo $product->getId();
+    //echo $product->getName();
+?>
+<div class="product-other-link">
+        <a class="email" title="Email a Friend" href="<?php echo $this->getUrl('sendfriend/product/send/id/'); ?><?php echo $product->getId();?>">Email a Friend</a>
+        <a class="question" title="Ask a Question" href="<?php echo $this->getUrl('contact'); ?>">Ask a Question</a>
+</div>

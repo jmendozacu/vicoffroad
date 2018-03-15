@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Catalog\Block\Product\Gallery $block */
+?>
+<?php $_width = $block->getImageWidth(); ?>
+<div class="product-image-popup" style="width:<?php /* @escapeNotVerified */ echo $_width; ?>px;">
+    <div class="buttons-set"><a href="#" class="button" role="close-window"><span><?php /* @escapeNotVerified */ echo __('Close Window') ?></span></a></div>
+    <?php if ($block->getPreviousImageUrl() || $block->getNextImageUrl()): ?>
+        <div class="nav">
+          <?php if ($_prevUrl = $block->getPreviousImageUrl()): ?>
+              <a href="<?php /* @escapeNotVerified */ echo $_prevUrl ?>" class="prev">&laquo; <?php /* @escapeNotVerified */ echo __('Prev') ?></a>
+          <?php endif; ?>
+          <?php if ($_nextUrl = $block->getNextImageUrl()): ?>
+              <a href="<?php /* @escapeNotVerified */ echo $_nextUrl ?>" class="next"><?php /* @escapeNotVerified */ echo __('Next') ?> &raquo;</a>
+          <?php endif; ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($_imageTitle = $block->escapeHtml($block->getCurrentImage()->getLabel())): ?>
+        <h1 class="image-label"><?php /* @escapeNotVerified */ echo $_imageTitle ?></h1>
+    <?php endif; ?>
+    <?php
+        $imageUrl = $this->helper('Magento\Catalog\Helper\Image')
+            ->init($block->getProduct(), 'product_page_image_large')
+            ->setImageFile($block->getImageFile())
+            ->getUrl();
+    ?>
+    <img src="<?php /* @escapeNotVerified */ echo $imageUrl; ?>"<?php if ($_width): ?> width="<?php /* @escapeNotVerified */ echo $_width ?>"<?php endif; ?> alt="<?php echo $block->escapeHtml($block->getCurrentImage()->getLabel()) ?>" title="<?php echo $block->escapeHtml($block->getCurrentImage()->getLabel()) ?>" id="product-gallery-image" class="image" data-mage-init='{"catalogGallery":{}}'/>
+    <div class="buttons-set"><a href="#" class="button" role="close-window"><span><?php /* @escapeNotVerified */ echo __('Close Window') ?></span></a></div>
+    <?php if ($block->getPreviousImageUrl() || $block->getNextImageUrl()): ?>
+        <div class="nav">
+          <?php if ($_prevUrl = $block->getPreviousImageUrl()): ?>
+              <a href="<?php /* @escapeNotVerified */ echo $_prevUrl ?>" class="prev">&laquo; <?php /* @escapeNotVerified */ echo __('Prev') ?></a>
+          <?php endif; ?>
+          <?php if ($_nextUrl = $block->getNextImageUrl()): ?>
+              <a href="<?php /* @escapeNotVerified */ echo $_nextUrl ?>" class="next"><?php /* @escapeNotVerified */ echo __('Next') ?> &raquo;</a>
+          <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>
+<!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style ">
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_button_tweet"></a>
+        <!--<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>-->
+        <a class="addthis_button_pinterest at300b"><span class="at_PinItButton"></span></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4fce36935105cb6e"></script>
+    <!-- AddThis Button END -->

@@ -1,0 +1,101 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<div class="footer-top">
+    <div class="content">
+        <div class="box-subscribe">
+            <div class="box-newsletter">
+                <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('subcribe_text')->toHtml();?>
+                <!--<div class="form-newsletter">
+					<script type="text/javascript" src="//app.icontact.com/icp/static/form/javascripts/validation.js"></script>
+					<script type="text/javascript" src="//app.icontact.com/icp/static/form/javascripts/tracking.js"></script>
+					<link href="//app.icontact.com/icp/static/human/css/signupBuilder/formGlobalStyles.css" type="text/css" rel="stylesheet">
+					<form action="https://app.icontact.com/icp/core/mycontacts/signup/designer/form/?id=58&cid=1526024&lid=957" id="ic_signupform" class="form subscribe" method="POST">
+						<div class="elcontainer tight inline-label-right left-aligned">
+							<div class="sortables">
+								<div data-label="Email" data-validation-type="1" class="field newsletter formEl fieldtype-input required">
+									<div class="control">
+										<input id="newsletter-text" placeholder="Email Address" name="data[email]" type="text">
+									</div>
+								</div>
+								<div data-label="Lists" data-validation-type="1" style="display: none; width: 100%;" dataname="listGroups" class="formEl fieldtype-checkbox required">
+									<h3>Lists<span class="indicator required">*</span></h3>
+									<div class="option-container">
+										<label class="checkbox">
+											<input alt="" name="data[listGroups][]" value="21291" checked="checked" type="checkbox">Customer
+										</label>
+									</div>
+								</div>
+								<div class="actions">
+									<button class="action subscribe primary" title="Subscribe" type="submit">
+										<span>Go</span>
+									</button>
+								</div>
+							</div>
+							<div class="hidden-container"></div>
+						</div>
+					</form>
+					<img src="//app.icontact.com/icp/core/signup/tracking.gif?id=58&cid=1526024&lid=957"/>
+                </div>-->
+				
+				<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+				<style type="text/css">
+					#mc_embed_signup{background:none !important;font:14px Helvetica,Arial,sans-serif; }
+					#mc_embed_signup form {padding:0 !important;}
+					#mc_embed_signup_scroll {position:relative;}
+					#mc_embed_signup .clear {clear:unset;position:absolute;top:0;right:0;width:auto;}
+					#mc_embed_signup .mc-field-group {width:100% !important;}
+					#mc_embed_signup .button {
+						height:40px;
+						margin:0;
+						background: url("https://www.vicoffroad.com.au/pub/static/frontend/Smv/magetheme/en_AU/images/vor-icon-bg.png") no-repeat scroll 0 -322px;
+						padding:0;
+						width:42px;
+						border-radius:3px;
+					}
+					#mc-embedded-subscribe {height:40px;padding:0px;text-indent:-9999px;}
+					#mc_embed_signup #mc-embedded-subscribe-form input.mce_inline_error {border:0 !important;color:#999;}
+					.form-newsletter #mce-EMAIL {
+						background: #fff none repeat scroll 0 0;
+						border: 0 none;
+						border-radius: 3px;
+						color: #8e8e8e !important;
+						font-family: arial;
+						font-size: 14px;
+						height: 40px !important;
+						line-height: 18px;
+						padding: 0 45px 0 10px !important;
+						width: 100%;						
+					}
+					#mc_embed_signup div.mce_inline_error {color:#6e6e6e;}
+				</style>
+				<div id="mc_embed_signup" class="form-newsletter">
+					<form action="//vicoffroad.us15.list-manage.com/subscribe/post?u=3de09869c80ee59864c72e0c4&amp;id=7bc3ee2a24" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+						<div id="mc_embed_signup_scroll">
+						
+					<div class="mc-field-group">
+						<!--<label for="mce-EMAIL">Email Address </label>-->
+						<input type="email" value="" name="EMAIL" placeholder="Email Address" class="required email" id="mce-EMAIL">
+					</div>
+						<div id="mce-responses" class="clear">
+							<div class="response" id="mce-error-response" style="display:none"></div>
+							<div class="response" id="mce-success-response" style="display:none"></div>
+						</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+						<!--<<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_3de09869c80ee59864c72e0c4_7bc3ee2a24" tabindex="-1" value=""></div> -->
+						<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+						</div>
+					</form>
+				</div>
+				<!--<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script> -->
+            </div>
+        </div>
+        <div class="earning-points">
+            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('start-earning-points')->toHtml();?>
+                
+        </div>
+    </div>
+</div>

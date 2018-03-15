@@ -1,0 +1,134 @@
+
+
+<?php
+$displayDataConfig = $block->dataConfig();
+if ($displayDataConfig['shipping_setting_enabled'] != null && (int)$displayDataConfig['shipping_setting_enabled'] != 0) {
+    ?>
+    <input id="estimate_cart_yes" type="hidden" name="estimate[cart]" value="1"/>
+    <div class="block block-shipping-estimate">
+        <h3>Postage Calculator</h3>
+        <div class="block-content">
+            <p class="block-subtitle">Enter your postcode for estimated shipping</p>
+            <div class="shipping-estimation-form" id="shipping-estimation-form">
+                <div class="country">
+                    <select onchange="selectOnchange()" name="country_id" id="country_id">
+                        <?php
+                        $arrayOption = $block->getCountries();
+                        for ($i = 0; $i < count($arrayOption); $i++) {
+                            if($arrayOption[$i]["value"] == ''){continue;}
+                            echo '<option value="' . $arrayOption[$i]["value"] . '">' . $arrayOption[$i]["label"] . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                if ($displayDataConfig['shipping_setting_region'] != null && (int)$displayDataConfig['shipping_setting_region'] != 0) {
+                    ?>
+                    <input class="country" name="state_province_text" class="smv_lable_input"
+                           type="hidden"
+                           id="smv_state_province" value="" placeholder="State/Province"/>
+                    <?php
+                }
+                ?>
+                <?php
+                if ($displayDataConfig['shipping_setting_city'] != null && (int)$displayDataConfig['shipping_setting_city'] != 0) {
+                    ?>
+                    <input class="country" style="" name="state_province_city" class="smv_lable_input"
+                           type="text"
+                           id="smv_state_province_city" placeholder="City" value=""/>
+                    <?php
+                }
+                ?>
+                <?php
+                if ($displayDataConfig['shipping_setting_postcode'] != null && (int)$displayDataConfig['shipping_setting_postcode'] != 0) {
+                    ?>
+                    <div class="input-box">
+                        <input class="input-text validate-postcode" type="text" id="estimate_postcode" name="postcode"
+                               value=""
+                               placeholder="postcode"/>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+            <?php
+            if ($displayDataConfig['shipping_setting_postcode'] != null && (int)$displayDataConfig['shipping_setting_postcode'] != 0) {
+                ?>
+                <div class="actions">
+                    <div class="f-right">
+                        <button type="button" title="Get a Quote" onclick="estimateProductShipping()" class="button">
+                            <span><span>GO</span></span></button>
+                    </div>
+            <span class="please-wait f-left" id="shipping-estimate-loading-message" style="display:none;">
+                Loading rates... </span>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+        <div id="shipping-estimate-results" style="display:none">
+        </div>
+    </div>
+    <?php
+}
+?>
+<!-- END block-shipping-estimate -->
+
+
+<script type="text/javascript">
+    function estimateProductShipping() {
+        if (jQuery('#estimate_postcode').val() == '') {
+            jQuery('#validation-postcode').remove();
+            jQuery('#shipping-estimate-results').before('<div style="float: right; margin-right: 15px;" id="validation-postcode" class="validation-advice">Please enter the postcode</div>');
+        } else {
+            var data = jQuery('#product_addtocart_form').serialize();
+            jQuery('#validation-postcode').remove();
+            var estimationUrl = '<?php echo $this->getUrl('pdshipping/estimate/index'); ?>';
+            jQuery('#shipping-estimate-results').hide();
+            jQuery.ajax({
+                url: estimationUrl,
+                type: 'post',
+                data: data,
+                success: function (result) {
+                    jQuery('#shipping-estimate-results').html(result);
+                    jQuery('#shipping-estimate-results').show();
+                }
+            });
+        }
+    }
+    /********************/
+    var data_respon;
+    function selectOnchange() {
+        var data_country = jQuery('#country_id').val();
+        console.log(data_country);
+        jQuery.ajax({
+            url: "<?php echo $this->getUrl('pdshipping/estimate/GetState'); ?>",
+            type: 'post',
+            dataType: 'json',
+            data: "country_id=" + data_country,
+            success: function (data) {
+                data_respon = jQuery.parseJSON(JSON.stringify(data));
+                console.log(data);
+                renderState();
+            }
+        });
+    }
+    function renderState() {
+        var count = data_respon.length;
+        if (count != 0) {
+            var option = '<div id="smv_state_province_select" class="country" style="width: 139px;"><select name="state_province_option" style="margin-bottom:15px;">';
+            for (var i = 0; i < data_respon.length; i++) {
+                option = option + "<option value="+data_respon[i]["region_id"]+">" + data_respon[i]["default_name"] + "</option></div>";
+//                console.log(data_respon[i]);
+            }
+            option = option + '</select>';
+            jQuery("#smv_state_province_select").remove();
+            jQuery("#smv_state_province").after(option);
+            jQuery("#smv_state_province").css("display", "none");
+        }
+        if (count == 0) {
+            jQuery("#smv_state_province_select").remove();
+            jQuery("#smv_state_province").css("display", "block");
+        }
+    }
+</script>

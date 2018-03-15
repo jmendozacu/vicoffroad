@@ -1,0 +1,74 @@
+.aw-blog-admin-post-edit fieldset > .admin__field > .admin__field-label,
+.aw-blog-admin-post-edit fieldset > .admin__field > .admin__field-control {
+    float: none;
+}
+.aw-blog-admin-post-edit fieldset > .admin__field > .admin__field-control {
+    width: calc( (100%) * .99 - 30px );
+}
+.aw-blog-admin-post-edit .admin__field > .admin__field-control > .note.warning {
+    color: #eb5202;
+}
+
+#general_fieldset {
+    width: calc( (100%) * .67);
+    float: left;
+}
+
+#settings_fieldset {
+    width: calc( (100%) * .33 - 30px );
+    float: right;
+    background: #f1f1f1;
+    padding: 2em;
+}
+
+#settings_fieldset > .admin__field > .admin__field-control select {
+    width:100%;
+}
+
+#settings_fieldset >.field-status_text > .admin__field-control {
+    width:50%;
+    line-height: 3.2rem;
+    font-weight: 600;
+}
+#settings_fieldset >.field-status_text.draft > .admin__field-control {
+    color: #d53636;
+}
+#settings_fieldset >.field-status_text.scheduled > .admin__field-control {
+    color: #2e7ae4;
+}
+#settings_fieldset >.field-status_text.published > .admin__field-control {
+    color: #029f11;
+}
+
+#settings_fieldset > .field-status_text > .admin__field-label {
+    width:auto;
+    padding-right: 2em;
+    float:left;
+    text-align: left;
+    line-height: 3.0rem;
+}
+
+#general_fieldset > .field-has_short_content > .admin__field-control,
+#settings_fieldset > .field-is_scheduled > .admin__field-control {
+    float: left;
+    width: auto;
+    margin-top: 8px;
+}
+#general_fieldset > .field-has_short_content > .admin__field-label,
+#settings_fieldset > .field-is_scheduled > .admin__field-label {
+    margin-left: 15px;
+}
+#settings_fieldset > .field-publish_date {
+    margin-top: -2.5rem;
+}
+#settings_fieldset > .field-publish_date .input-text,
+#settings_fieldset > .field-publish_date .input-text {
+    width: 70%;
+    padding: .6rem 1rem .6rem;
+}
+#settings_fieldset > .field-publish_date .ui-datepicker-trigger,
+#settings_fieldset > .field-publish_date .ui-datepicker-trigger {
+    margin-left: 1rem;
+    display: inline-block;
+}
+

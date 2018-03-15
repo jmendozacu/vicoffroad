@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @var $block \Magento\Checkout\Block\Cart
+ */
+?>
+<div class="page-cart">
+    
+    <?php
+if ($block->getItemsCount()):?>
+    <div class="bt-pay bt-pay-top"><a href="<?php echo $this->getUrl('checkout');?>" title="Pay Securely Now">Pay Securely Now</a></div>
+   <?php echo $block->getChildHtml('with-items');?>
+   <?php else:?>
+       <?php echo $block->getChildHtml('no-items');?>
+<?php endif; ?>
+</div>
+<script type="text/javascript">
+    require(['jquery'],function($){
+    jQuery(document).ready(function(){
+        jQuery('.qty-decrease').click(function(){
+            var qty = jQuery(this).next().val();
+            if(qty > 1){
+                jQuery(this).next().val(jQuery(this).next().val() - 1);
+            }
+        });
+        jQuery('.qty-increase').click(function(){
+            var newqty = parseInt(jQuery(this).prev().val()) + 1;
+            jQuery(this).prev().val(newqty);
+        });
+    });
+    });
+    </script>

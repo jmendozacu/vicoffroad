@@ -1,0 +1,5 @@
+<?php
+$_product = $block->getProduct();
+?>
+<p class="post-code">Item number: <span><?php echo $_product->getSku(); ?></span></p>
+<?php echo $block->getReviewsSummaryHtml($block->getProduct(), false, true)?>

@@ -1,0 +1,108 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="gift-messages checkbox-group">
+    <input type="checkbox" name="allow_gift_messages" id="allow_gift_messages"
+           value="1" <?php if ($this->getItemsHasMesssages() || $this->getEntityHasMessage()): ?> checked="checked"<?php endif; ?>
+           class="checkbox osc-additional-data"/>
+    <label for="allow_gift_messages" class="label--checkbox">
+        <span class="check"></span>
+        <span class="box-check"></span>
+        <?php echo __('Add a gift message to my order') ?></label>
+</div>
+<div class="gift-messages-form" id="allow-gift-message-container">
+    <div class="inner-box">
+        <?php if ($this->helper('Magestore\OneStepCheckout\Helper\Message')
+            ->isMessagesAllowed('quote', $this->getEntity())
+        ): ?>
+            <div class="whole-order">
+                <input id="giftmessage-type" type="hidden"
+                       name="giftmessage[<?php echo $this->getEntity()->getId() ?>][type]" value="quote"/>
+                <ul class="onestepcheckout-form-list">
+                    <li class="fields">
+                        <div class="field">
+                            <div class="input-box">
+                                <input type="text"
+                                       name="giftmessage[<?php echo $this->getEntity()->getId() ?>][from]"
+                                       id="gift-message-whole-from" title="<?php echo __('From') ?>"
+                                       value="<?php echo $this->getEscaped($this->getMessage()->getSender(),
+                                           trim($this->getDefaultFrom())) ?>" class="input-text validation-passed osc-additional-data"
+                                       />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label for="gift-message-whole-from"><?php echo __('From') ?></label>
+                            </div>
+                        </div>
+                        <div class="field f-right">
+                            <div class="input-box">
+                                <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][to]"
+                                       id="gift-message-whole-to" title="<?php echo __('To') ?>"
+                                       value="<?php echo $this->getEscaped($this->getMessage()->getRecipient(),
+                                           trim($this->getDefaultTo())) ?>" class="input-text validation-passed osc-additional-data"
+                                       />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label for="gift-message-whole-to"><?php echo __('To') ?></label>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="wide">
+                        <?php echo __('Message') ?>
+                        <div class="input-box">
+                            <textarea id="gift-message-whole-message" placeholder="<?php echo __('Message') ?>"
+                                      class="input-text validation-passed giftmessage-area osc-additional-data"
+                                      name="giftmessage[<?php echo $this->getEntity()->getId() ?>][message]"
+                                      title="<?php echo __('Message') ?>" rows="5" cols="10"><?php echo $this->getEscaped($this->getMessage()->getMessage())?></textarea>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function ($) {
+        $('document').ready(function () {
+            if ($('#allow_gift_messages').prop('checked')) {
+                $('#allow-gift-message-container').show();
+            }
+            else {
+                $('#allow-gift-message-container').hide();
+            }
+
+        });
+        $('#allow_gift_messages').click(function () {
+            if ($('#allow_gift_messages').prop('checked')) {
+                $('#allow-gift-message-container').show();
+            }
+            else {
+                $('#allow-gift-message-container').hide();
+            }
+        });
+    });
+
+</script>

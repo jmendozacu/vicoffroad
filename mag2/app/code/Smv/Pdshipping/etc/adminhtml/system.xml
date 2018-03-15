@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <!-- for create section -->
+        <section id="smvpdshipping" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Config Flat Rate</label>
+            <!-- Assign section to tab -->
+            <tab>sales</tab>
+            <resource>Smv_Pdshipping::configuration</resource>
+            <!-- create group for fields in section -->
+            <group id="flatrate" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Page Shipping Settings</label>
+                <field id="shipping_setting_enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Product Page Shipping</label>
+                    <source_model>Smv\Pdshipping\Model\Config\Source\SelectConfig</source_model>
+                </field>
+                <field id="shipping_setting_region" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Region Field</label>
+                    <source_model>Smv\Pdshipping\Model\Config\Source\SelectConfig</source_model>
+                </field>
+                <field id="shipping_setting_city" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display City Field</label>
+                    <source_model>Smv\Pdshipping\Model\Config\Source\SelectConfig</source_model>
+                </field>
+                <field id="shipping_setting_postcode" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Zip/Postal Code Field</label>
+                    <source_model>Smv\Pdshipping\Model\Config\Source\SelectConfig</source_model>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="1" showInDefault="5" showInWebsite="1" showInStore="0">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Smv\Pdshipping\Model\Config\Source\GetApplicableCountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="2" showInDefault="6" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Smv\Pdshipping\Model\Config\Source\GetAllCountries</source_model>
+                    <!--<source_model>Magento\Directory\Model\Config\Source\Country</source_model>-->
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

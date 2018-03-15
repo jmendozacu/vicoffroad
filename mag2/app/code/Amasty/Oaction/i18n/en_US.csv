@@ -1,0 +1,50 @@
+"Something went wrong while updating the product(s) data.","Something went wrong while updating the product(s) data."
+"Invoice created","Invoice created"
+"The order no longer exists.","The order no longer exists."
+"The order does not allow an invoice to be created.","The order does not allow an invoice to be created."
+"We can't save the invoice right now.","We can't save the invoice right now."
+"You can't create an invoice without products.","You can't create an invoice without products."
+"We can't send the invoice email right now.","We can't send the invoice email right now."
+"Can not invoice order #%1: %2","Can not invoice order #%1: %2"
+"Total of %1 order(s) have been successfully invoiced.","Total of %1 order(s) have been successfully invoiced."
+"Shipment created","Shipment created"
+"We can't save the shipment right now.","We can't save the shipment right now."
+"Can not ship order #%1: %2","Can not ship order #%1: %2"
+"Total of %1 order(s) have been successfully shipped.","Total of %1 order(s) have been successfully shipped."
+"Status changed","Status changed"
+"Selected status does not correspond to the state of order.","Selected status does not correspond to the state of order."
+"Can not update order #%1: %2","Can not update order #%1: %2"
+"Total of %1 order(s) have been successfully updated.","Total of %1 order(s) have been successfully updated."
+Custom,Custom
+"Magento Default","Magento Default"
+Carrier:,Carrier:
+Title:,Title:
+"Tracking Number","Tracking Number"
+"Tracking Number:","Tracking Number:"
+"Shipment is already created.","Shipment is already created."
+"Mass Order Actions","Mass Order Actions"
+General,General
+"Enabled Actions","Enabled Actions"
+"Press CTRL+mouse to select multiple values.","Press CTRL+mouse to select multiple values."
+"Invoice Action","Invoice Action"
+"Assign Status","Assign Status"
+"Print Invoices","Print Invoices"
+"Ship Action","Ship Action"
+"Default Carrier","Default Carrier"
+"Will be pre-selected at the orders grid.","Will be pre-selected at the orders grid."
+"Default Title for Custom Carrier","Default Title for Custom Carrier"
+"Show Custom Carrier Title at the Order Grid","Show Custom Carrier Title at the Order Grid"
+Status,Status
+"Check State","Check State"
+"Disallow to set status, which assigned to other state.","Disallow to set status, which assigned to other state."
+Invoice,Invoice
+"Notify Customer","Notify Customer"
+"Do Not Notify Customer","Do Not Notify Customer"
+"Invoice > Ship","Invoice > Ship"
+Ship,Ship
+"Change Status","Change Status"
+"Change status to: ","Change status to: "
+amasty_oaction_status_select,amasty_oaction_status_select
+"Change Status for selected items?","Change Status for selected items?"
+-------------------,-------------------
+Shipping,Shipping

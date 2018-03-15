@@ -1,0 +1,18 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\Sidebar\Tags */
+?>
+<?php
+    $tags = $block->getTagsCollection();
+?>
+<?php if ($tags->getSize()): ?>
+<strong class="title cat-tag"><span>tags</span></strong>
+    <ul class="items cat-tag-items">
+        <?php foreach ($tags as $tag): ?>
+        <li class="item">
+                    <a href="<?php echo $block->getSearchByTagUrl($tag) ?>" <?php if ($block->isCloud()): ?>style="font-size: <?php echo $block->getTagWeight($tag) ?>%;"<?php endif; ?> class="aw-blog-tags__tag">
+                        <?php echo $tag->getName() ?>
+                    </a>
+        </li>
+                <?php endforeach; ?>
+        </ul>
+<?php endif; ?>

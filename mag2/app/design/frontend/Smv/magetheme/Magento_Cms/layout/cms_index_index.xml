@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <referenceContainer name="page.top">
+       <block class="Magento\Framework\View\Element\Template" name="home.banner" template="Magento_Cms::homebanner.phtml" before="top.sologan" />
+     <block class="Magento\Framework\View\Element\Template" name="home" template="Magento_Cms::home.phtml">
+        <arguments>
+            <argument name="section" xsi:type="string">homepage</argument>
+            <argument name="position" xsi:type="number">0</argument>
+        </arguments>
+<!--        <block name="home-banner" class="FME\Photogallery\Block\PList" template="FME_Photogallery::home_banner.phtml"/>
+        <block name="feature-categories" class="FME\Photogallery\Block\PList" template="FME_Photogallery::home_categories.phtml"/>-->
+     </block>
+   </referenceContainer>
+    <referenceContainer name="content">
+<!--     <block class="Magento\Catalog\Block\Product\ListProduct" name="home.products.list" as="home_product" template="Magento_Cms::home_product.phtml">
+        <container name="category.product.list.additional" as="additional" />
+        <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+            <block class="Magento\Framework\View\Element\Template" as="default"/>
+        </block>
+    </block>-->
+    <block class="Magento\Catalog\Block\Product\ListProduct" name="home.products.bestsellers" as="home.products.bestsellers" template="Magento_Cms::home_product_bestsellers.phtml">
+        <container name="category.product.list.additional" as="additional" />
+        <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+            <block class="Magento\Framework\View\Element\Template" as="default"/>
+        </block>
+    </block>
+    <block class="Amasty\Cart\Block\Config" name="ajax.cart" template="Amasty_Cart::config.phtml" />
+    
+   </referenceContainer>   
+   <referenceContainer name="page.bottom">
+       <block class="Magento\Reports\Block\Product\Widget\Viewed" name="product.viewed" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml" />
+       <block class="Magestore\Shopbybrand\Block\Featurebrand" name="home.brand" template="Magento_Cms::home_brand.phtml" />
+   </referenceContainer>    
+</page>

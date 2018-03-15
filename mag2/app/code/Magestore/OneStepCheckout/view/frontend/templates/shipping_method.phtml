@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Shipping\Method $block */
+?>
+<?php if (!$block->isVirtualQuote()):?>
+<h3 style="float:left"  id="shipping_method_step_header" class="step_2">
+    <?php echo __('Shipping Method'); ?>
+</h3>
+<div class="ajax-loader3 ajax-loader-shipping-method" id="ajax-shipping" style="display:none; float: left; margin-top: 14px; margin-left: 10px;"></div>
+<div class="clear"></div>
+
+<div class="onestepcheckout-shipping-method-section" id="onestepcheckout-shipping-method-section">
+    <form id="shipping-method-form" action="">
+        <?php echo $block->getChildHtml('onestepcheckout.shipping_method_available'); ?>
+    </form>
+</div>
+<div class="ajax-loader1" id="ajax-loader1" style="display:none;"></div>
+<?php endif;?>

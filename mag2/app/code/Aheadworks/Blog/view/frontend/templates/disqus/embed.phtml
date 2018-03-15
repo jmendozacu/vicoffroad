@@ -1,0 +1,19 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\Disqus */
+?>
+<?php if ($block->commentsEnabled()): ?>
+    <div id="disqus_thread" class="aw-blog-post__comments"></div>
+    <script>
+        var disqus_config = function () {
+            this.page.identifier = <?php echo \Zend_Json::encode($block->getPageIdentifier()) ?>;
+            this.page.url = <?php echo \Zend_Json::encode($block->getPageUrl()) ?>;
+            this.page.title = <?php echo \Zend_Json::encode($block->getPageTitle()) ?>;
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = '//<?php echo $block->getDisqusForumCode() ?>.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+<?php endif; ?>

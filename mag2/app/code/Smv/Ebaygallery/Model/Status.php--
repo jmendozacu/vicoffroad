@@ -1,0 +1,29 @@
+<?php
+namespace Smv\Ebaygallery\Model;
+class Status extends \Magento\Framework\ObjectManager\ObjectManager {
+
+
+    /**---Functions---*/
+    public function getOptionArray()
+    {
+        return array(
+            self::STATUS_ENABLED    => __('Enabled'),
+            self::STATUS_DISABLED   => __('Disabled')
+        );
+    }
+
+
+    public function __construct(
+                    \Magento\Framework\ObjectManagerInterface $objectManager,
+                 \Magento\Framework\ObjectManager\FactoryInterface $factory,
+                 \Magento\Framework\ObjectManager\ConfigInterface $config
+            )
+         {
+                parent::__construct($factory, $config);
+                $this->_objectManager = $objectManager;
+            
+
+    }
+
+
+}

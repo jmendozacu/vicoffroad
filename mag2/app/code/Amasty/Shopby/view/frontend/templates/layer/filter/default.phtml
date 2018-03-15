@@ -1,0 +1,121 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2016 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\Shopby\Model\FilterSetting $filterSetting */
+?>
+<?php if($filterSetting->isShowSearchBox()): ?>
+    <div class="amshopby-search-box">
+        <input type="text" class="am_shopby_filter_search_box_<?=$filterSetting->getFilterCode();?>" placeholder="<?=__("Search")?>">
+    </div>
+<?php endif; ?>
+<ol class="items am_shopby_filter_items_<?=$filterSetting->getFilterCode();?>">
+    <?php foreach ($filterItems as $filterItem): ?>
+        <?php $uniqId = uniqid(); ?>
+        <li class="item" data-label="<?=$this->escapeHtml($filterItem->getLabel())?>">
+            <?php if ($filterItem->getCount() > 0): ?>
+                <?php $checked =  $this->checkedFilter($filterItem) ? ' checked' : ''; ?>
+
+                <a class="am_shopby_filter_item_<?php echo $block->escapeId($uniqId)?>" href="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>">
+                    <?php if ($filterSetting->isMultiselect()): ?>
+                        <input type="checkbox" <?php echo $checked ?> />
+                    <?php elseif(!in_array($filterSetting->getFilterCode(), ['rating', 'stock'])):?>
+                        <input type="radio" name="<?=$filterSetting->getFilterCode();?>[]" <?php echo $checked ?> />
+                    <?php endif; ?>
+                    <span class="label"><?php echo $filterItem->getLabel() ?></span>
+                    <?php if ($filterSetting->isShowProductQuantities()): ?>
+                        <span class="count">(<?php echo $filterItem->getCount()?>)</span>
+                    <?php endif; ?>
+                </a>
+            <?php else:?>
+                <span class="label"><?php echo $filterItem->getLabel() ?></span>
+                <?php if ($filterSetting->isShowProductQuantities()): ?>
+                    <span class="count">(<?php echo $filterItem->getCount()?>)</span>
+                <?php endif; ?>
+            <?php endif; ?>
+            <script type="text/x-magento-init">
+            {
+                ".am_shopby_filter_item_<?php echo $block->escapeId($uniqId)?>": {
+                    "amShopbyFilterItemDefault": {}
+                }
+            }
+            </script>
+        </li>
+    <?php endforeach ?>
+    <?php if ($filterSetting->getAddFromToWidget() && isset($fromToConfig) && is_array($fromToConfig)) :?>
+        <li id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>">
+            <form>
+                <div class="range">
+                    <input class="amshopby-filter-price-from" data-validate="{'validate-number':true}" id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>_from" type="text" class="input-text" placeholder="<?php echo __('From')?>"/>
+                    <input class="amshopby-filter-price-to" data-validate="{'validate-number':true}" id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>_to" type="text" class="input-text" placeholder="<?php echo __('To')?>"/>
+                    <button class="amshopby-filter-price-go" id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>_go"><?php echo __('Go')?></button>
+                </div>
+            </form>
+        </li>
+        <script type="text/x-magento-init">
+        {
+            "#am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>": {
+                "amShopbyFilterFromTo": {
+                        "from":"<?php echo $fromToConfig['from'];?>",
+                        "to":"<?php echo $fromToConfig['to'];?>",
+                        "min":"<?php echo $fromToConfig['min'];?>",
+                        "max":"<?php echo $fromToConfig['max'];?>",
+                        "url": "<?php echo $block->getSliderUrlTemplate(); ?>"
+                    }
+            }
+        }
+        </script>
+    <?php endif;?>
+</ol>
+<?php if($filterSetting->isShowSearchBox()): ?>
+    <script type="text/x-magento-init">
+            {
+                ".am_shopby_filter_search_box_<?=$filterSetting->getFilterCode()?>": {
+                    "amShopbyFilterSearch": {
+                        "highlightTemplate": "<span class='amshopby-hightlighted'>$&</span>",
+                        "itemsSelector": ".am_shopby_filter_items_<?=$filterSetting->getFilterCode();?>"
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>
+
+<?php if($filterSetting->getNumberUnfoldedOptions()): ?>
+    <button class="amshopby-more-button">
+        <a class="am_shopby_filter_items_<?=$filterSetting->getFilterCode()?>_show_more" data-text-more="<?=__("More")?>" data-text-less="<?=__("Less")?>" href="javascript:void(0)" data-is-hide="false">
+            <?=__("Less")?>
+        </a>
+    </button>
+    <script type="text/x-magento-init">
+            {
+                ".am_shopby_filter_items_<?=$filterSetting->getFilterCode()?>": {
+                    "amShopbyFilterHideMoreOptions": {
+                        "numberUnfoldedOptions": <?=$filterSetting->getNumberUnfoldedOptions()?>,
+                        "buttonSelector": ".am_shopby_filter_items_<?=$filterSetting->getFilterCode()?>_show_more"
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>
+
+<?php if($filterSetting->isShowTooltip()): ?>
+    <?php
+    $tooltipTemplate = '<span class="tooltip amshopby-filter-tooltip" style="float:right" title="{content}"><img src="'.$tooltipUrl.'"</img></span>';
+    ?>
+    <script type="text/x-magento-init">
+            {
+                ".am_shopby_filter_items_<?=$filterSetting->getFilterCode()?>": {
+                    "amShopbyFilterAddTooltip": {
+                        "content": <?=json_encode($filterSetting->getTooltip())?>,
+                        "tooltipTemplate": <?=json_encode($tooltipTemplate)?>
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>
+
+

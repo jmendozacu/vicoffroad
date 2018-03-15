@@ -1,0 +1,107 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Billing $block */
+?>
+<div class="billing_address">
+    <h3 id="billing_step_header" class="step_1"><?php echo __("Billing Address"); ?></h3>
+    <?php if ($block->customerHasAddresses()): ?>
+        <p class="label"><?php echo __('Select a billing address from your address book or enter a new address.') ?></p>
+        <ul>
+            <li>
+                <div class="one-field mdl-selectfield has-address"><?php echo $block->getAddressesHtmlSelect('billing') ?></div>
+            </li>
+        </ul>
+    <?php endif; ?>
+    <fieldset id="billing-new-address-form" class="group-select new-address-form">
+        <input type="hidden" name="billing[address_id]"
+               value="<?php echo $block->escapeHtml($block->getBillingAddress()->getId()) ?>"
+               id="billing:address_id" />
+        <form id="billing-address-form" action="">
+            <ul>
+            <?php echo $block->getChildHtml() ?>
+            <?php if($block->canShowPasswordSection()) : ?>
+                <li class="create_account">
+                    <div class="checkbox-group">
+                        <input id="create_account_checkbox_id" name="create_account_checkbox" value="0" class="create-account-checkbox checkbox osc-additional-data" type="checkbox">
+                        <label for="create_account_checkbox_id" class="label--checkbox">
+                            <span class="check"></span>
+                            <span class="box-check"></span>
+                            <?php echo __('Create an account for later use') ?></label>
+                    </div>
+                </li>
+                <li id="password_section_id" class="password-section" style="display: none;">
+                    <div class="two-fields">
+                        <input name="billing[customer_password]" id="billing:customer_password"
+                               title="Password" class="input-text required-entry validate-password customer-password osc-additional-data" required="" type="password">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="required" for="billing:customer_password"><?php echo __('Password') ?> <em>*</em></label>
+                    </div>
+                    <div class="two-fields last">
+                        <input name="billing[confirm_password]" title="Confirm Password"
+                               id="billing:confirm_password" class="input-text required-entry validate-cpassword confirm-password osc-additional-data" required="" type="password">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="required" for="billing:confirm_password"><?php echo __('Confirm Password') ?> <em>*</em></label>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->isCustomerLoggedIn() && $block->customerHasAddresses()): ?>
+                <li class="control shipping_other_address save-address">
+                    <div class="input-box checkbox-group">
+                        <input type="checkbox" name="billing[save_in_address_book]"
+                               title="<?php echo __('Save in address book') ?>" 
+                               id="billing:save_in_address_book"
+                               data-field-id="save_in_address_book"
+                               class="checkbox"
+                               value="<?php echo $block->getShippingAddress()->getSaveInAddressBook() ? '1' : '0' ?>"
+                            <?php if ($block->getBillingAddress()->getSaveInAddressBook()): ?> checked="checked"<?php endif; ?>
+                        />
+                        <label for="billing:save_in_address_book" class="label--checkbox"><?php echo __('Save in address book') ?>
+                            <span class="check"></span>
+                            <span class="box-check"></span>
+                        </label>
+                    </div>
+                </li>
+            <?php else: ?>
+                <li class="no-display billing-li">
+                    <input type="hidden" data-field-id="save_in_address_book" name="billing[save_in_address_book]" value="0" />
+                </li>
+            <?php endif; ?>
+
+            <li class="billing-li" style="display:none;">
+                <input type="hidden" value="1" id="billing:use_same_shipping" name="billing[use_same_shipping]">
+            </li>
+        </ul>
+        </form>
+    </fieldset>
+</div>
+<style type="text/css">
+    <?php if ($block->isVirtualQuote()):?>
+    .one-step-checkout #billing_step_header::before {
+        content: "1";
+    }
+    <?php endif;?>
+</style>

@@ -1,0 +1,76 @@
+<?php
+$_product = $block->getProduct();
+?>
+<?php
+//print_r();exit;
+//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$currencysymbol = '$';
+$msrp = $_product->getMsrp();
+$price = $_product->getPrice();
+$finalPrice = $_product->getFinalPrice();
+$save = 0; 
+if($finalPrice < $price){
+    $save = 100 - ($finalPrice/$price) * 100;
+}elseif($finalPrice < $msrp){
+    $save = 100 - ($finalPrice/$msrp) * 100;
+}
+$save = number_format($save, 0);
+?>
+
+<div class="product-info-price">
+        <div class="price-box price-final_price" data-product-id="<?php echo $_product->getId(); ?>" data-role="priceBox">
+            <label>Our Price</label>
+             <?php if($finalPrice < $price): ?>
+                <span class="price-container price-final_price tax weee"
+                        itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span  id="product-price-<?php echo $_product->getId(); ?>" class="price-wrapper " itemprop="price" data-price-type="finalPrice" data-price-amount="<?php echo $finalPrice; ?>">
+                                <span class="price"><?php echo $currencysymbol .number_format($finalPrice,2); ?></span>       
+                        </span>
+                    <span class="old-price">
+
+                        <?php 
+                            $presale_pid = $_product->getCategoryIds();
+                            if(in_array('141',$presale_pid)){
+                                echo 'ebay'; 
+                            }else{
+                                echo 'was'; 
+                            }
+
+                        ?>
+
+                        
+                        <span class="price-wrapper" itemprop="price" data-price-type="oldPrice" data-price-amount="<?php echo $price; ?>" id="old-price-<?php echo $_product->getId(); ?>">
+                                <span class="price-mrsp"><?php echo $currencysymbol .number_format($price, 2); ?></span>    
+                        </span>  
+                        </span>
+                        <meta itemprop="priceCurrency" content="AUD" />
+                </span>
+            <?php else: ?>
+                <span class="price-container price-final_price tax weee"
+                        itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span  id="product-price-<?php echo $_product->getId(); ?>" class="price-wrappe1r " itemprop="price" data-price-type="finalPrice" data-price-amount="<?php echo $finalPrice; ?>">
+                                <span class="price"><?php echo $currencysymbol .number_format($finalPrice,2); ?></span>     
+                        </span>
+                        <meta itemprop="priceCurrency" content="AUD" />
+                </span>
+            <?php endif; ?>
+            <?php if($msrp || $save): ?>
+                <span class="price-container price-final_price tax weee"
+                        itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span class="price-wrapper" itemprop="price">
+                            <?php if($msrp): ?>
+                                <span class="price-mrsp"><?php if($msrp) echo 'MRSP: '.$currencysymbol .number_format($msrp, 2); ?></span>   
+                            <?php endif; ?>
+                            <?php if($save): ?>
+                                <span class="price-save">Save <?php echo $save; ?>%</span>  
+                            <?php endif; ?>
+                        </span>
+                </span>
+            <?php endif; ?>
+         
+                
+        </div>
+    <?php if($_product->getFreeshipping()): ?>
+    <div class="box-free-shipping"><span>Free <strong>shipping</strong></span></div>
+    <?php endif; ?>
+</div>

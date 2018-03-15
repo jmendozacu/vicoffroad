@@ -1,0 +1,57 @@
+<?php
+/** @var $block \Aheadworks\Blog\Block\Adminhtml\Post\Edit\Form\Js */
+?>
+<script>
+    require(["jquery", "prototype"], function(jQuery){
+
+        function hideShowSchedule()
+        {
+            var scheduleCheckbox = $('is_scheduled');
+            if (!scheduleCheckbox) {
+                return;
+            }
+            var scheduleInput = $('publish_date');
+            var saveButton = $$("#save > span")[0];
+            var saveAndContinueButton = $("saveandcontinue");
+            var isScheduledPost = <?php echo $block->isScheduledPost() ? "true" : "false"; ?>;
+            if (scheduleCheckbox.checked) {
+                if (saveButton) {
+                    saveButton.innerHTML = '<?php echo $block->getSaveButtonLabel(true) ?>';
+                }
+                if (isScheduledPost && saveAndContinueButton) {
+                    saveAndContinueButton.show();
+                }
+                scheduleInput.enable();
+                scheduleInput.up('div.field').show();
+            } else {
+                if (saveButton) {
+                    saveButton.innerHTML = '<?php echo $block->getSaveButtonLabel(false) ?>';
+                }
+                if (isScheduledPost && saveAndContinueButton) {
+                    saveAndContinueButton.hide();
+                }
+                scheduleInput.disable();
+                scheduleInput.up('div.field').hide();
+            }
+            return true;
+        }
+
+        function hideShowShortContent()
+        {
+            var shortContentInput = $('short_content');
+            if ($('has_short_content').checked) {
+                shortContentInput.enable();
+                shortContentInput.up('div.field').show();
+            } else {
+                shortContentInput.disable();
+                shortContentInput.up('div.field').hide();
+            }
+            return true;
+        }
+
+        jQuery(document).ready(hideShowSchedule);
+        jQuery(document).ready(hideShowShortContent);
+        window.hideShowSchedule = hideShowSchedule;
+        window.hideShowShortContent = hideShowShortContent;
+    });
+</script>

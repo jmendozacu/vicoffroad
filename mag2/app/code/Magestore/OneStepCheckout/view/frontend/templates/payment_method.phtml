@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Payment $block */
+?>
+<dl class="sp-methods" id="checkout-payment-method-load">
+    <!-- if has payment method  -->
+    <?php if ($block->getNumberMethods()): ?>
+        <?php $index = 0; ?>
+        <?php foreach ($block->getMethods() as $method): ?>
+            <?php
+            $code = $method->getCode();
+            $index++;
+            ?>
+            <?php if ($index != $block->getNumberMethods()): ?>
+                <style type="text/css">
+                    #advice-validate-one-required-by-name-p_method_<?php echo $code ?> {
+                        display: none !important;
+                    }
+                </style>
+            <?php endif; ?>
+            <dt class="radioparent">
+                <label for="p_method_<?php echo $code ?>">
+                    <?php if (sizeof($block->getMethods()) > 1): ?>
+                        <input id="p_method_<?php echo $code ?>" value="<?php echo $code ?>" type="radio"
+                               name="payment[method]" title="<?php echo $block->escapeHtml($method->getTitle()) ?>"
+                            <?php if ($block->getSelectedMethodCode() == $code): ?> checked="checked"<?php endif; ?>
+                               class="radio validate-require-one-payment-method"/>
+                        <span class="outer"><span class="inner"></span></span>
+                    <?php else: ?>
+                        <span class="no-display"><input id="p_method_<?php echo $code ?>" value="<?php echo $code ?>"
+                                                        type="radio" name="payment[method]" checked="checked"
+                                                        class="radio validate-require-one-payment-method "/>
+                        </span>
+                    <?php endif; ?>
+                    <?php echo $block->getMethodImage($method) ?>
+                    <?php echo $block->getMethodTitle($method) ?> <?php echo $block->getMethodLabelAfterHtml($method) ?>
+                </label>
+            </dt>
+            <?php if ($html = $block->getPaymentMethodFormHtml($method)): ?>
+                <dd id="container_payment_method_<?php echo $code; ?>" class="payment-method" style="clear: both;">
+                    <?php echo $html; ?>
+                </dd>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p><?php echo __('Sorry, no payment method are available for this order at this time.') ?></p>
+    <?php endif; ?>
+    <!-- end if has payment method  -->
+</dl>
+<div class="tool-tip" id="payment-tool-tip" style="display:none;">
+    <div class="btn-close"><a href="#" id="payment-tool-tip-close"
+                              title="<?php echo __('Close') ?>"><?php echo __('Close') ?></a></div>
+    <div class="tool-tip-content"><img src="<?php echo $block->getSkinUrl('images/cvv.gif') ?>"
+                                       alt="<?php echo __('Card Verification Number Visual Reference') ?>"
+                                       title="<?php echo __('Card Verification Number Visual Reference') ?>"/>
+    </div>
+</div>
+<style type="text/css">
+    <?php if ($block->isVirtualQuote()):?>
+    .one-step-checkout #payment_method_step_header::before {
+        content: "2";
+    }
+
+    <?php endif;?>
+</style>

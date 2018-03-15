@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Shipping\Method\Available $block */
+?>
+<!--If is not virtual quote-->
+<?php if (!$block->isVirtualQuote()): ?>
+    <?php if (!$block->getNumShippingRates()): ?>
+        <p><?php echo __('Sorry, no quotes are available for this order at this time.') ?></p>
+    <?php else: ?>
+        <?php
+        $rateGroupIndex = 0;
+        $sole = ($block->getNumShippingRates() == 1);
+        ?>
+        <dl class="sp-methods">
+            <?php foreach ($block->getShippingRates() as $code => $rates): ?>
+                <?php $rateGroupIndex++; ?>
+                <dt><?php echo $block->getCarrierName($code) ?></dt>
+                <dd>
+                    <ul>
+                        <?php
+                        $rateIndex = 0;
+                        $sole = ($sole && count($rates) == 1);
+                        ?>
+                        <?php foreach ($rates as $rate): ?>
+                            <?php $rateIndex++; ?>
+                            <li class="radioparent">
+                                <?php if ($rate->getErrorMessage()): ?>
+                                    <ul class="messages">
+                                        <li class="error-msg">
+                                            <ul>
+                                                <li><?php echo $rate->getErrorMessage() ?></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                <?php else: ?>
+                                    <label
+                                        for="s_method_<?php echo $rate->getCode() ?>"><?php echo $rate->getMethodTitle() ?>
+                                        <?php if ($sole) : ?>
+                                            <span class="no-display"><input
+                                                    class="shipping-method-item validate-require-one-shipping-method"
+                                                    name="shipping_method" type="radio"
+                                                    value="<?php echo $rate->getCode() ?>"
+                                                    data-carrier = "<?php echo $rate->getCarrier();?>"
+                                                    data-carrier-method = "<?php echo $rate->getMethod()?>"
+                                                    id="s_method_<?php echo $rate->getCode() ?>"
+                                                    checked="checked"/></span>
+                                            <?php if ($block->getSystemConfig()->hideOneShippingMethod()) : ?>
+                                                <style>
+                                                    .shipping-method-information {
+                                                        display: none;
+                                                    }
+
+                                                    #payment_method_step_header::before {
+                                                        content: "2" !important;
+                                                    }
+                                                </style>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <?php if ($rateGroupIndex != $block->getNumShippingRates() || $rateIndex != count($rates)): ?>
+                                                <style type="text/css">
+                                                    #advice-validate-one-required-by-name-s_method_<?php echo $rate->getCode()?> {
+                                                        display: none !important;
+                                                    }
+                                                </style>
+                                            <?php endif; ?>
+                                            <input name="shipping_method" type="radio"
+                                                   value="<?php echo $rate->getCode() ?>"
+                                                   data-carrier = "<?php echo $rate->getCarrier();?>"
+                                                   data-carrier-method = "<?php echo $rate->getMethod()?>"
+                                                   id="s_method_<?php echo $rate->getCode() ?>"
+                                                    <?php echo $block->isCurrentShippingMethod($rate, $code) ? ' checked="checked"' : '' ?>
+                                                   class="shipping-method-item radio validate-require-one-shipping-method"/>
+                                            <span class="outer"><span class="inner"></span></span>
+                                        <?php endif; ?>
+                                        <?php echo $block->getExclPrice($rate); ?>
+                                        <?php if ($block->isShowBothPrices($rate)): ?>
+                                            (<?php echo __('Incl. Tax'); ?><?php echo $block->getInclPrice($rate); ?>)
+                                        <?php endif; ?>
+                                    </label>
+                                <?php endif ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </dd>
+            <?php endforeach; ?>
+        </dl>
+    <?php endif; ?>
+<?php endif; ?>
+<!--End if is not virtual quote-->

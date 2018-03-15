@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+$_item = $block->getItem();
+$product = $_item->getProduct();
+?>
+<tr class="even">
+
+    <td>
+        <div class="osc-delete" data-item-id="<?php echo $_item->getId(); ?>"></div>
+        <?php if ($this->helper('Magestore\OneStepCheckout\Helper\Data')->isEnabledProductImage()):?>
+        <div class="osc-product-image">
+            <?php
+            $image = 'category_page_grid';
+            $productImage = $this->helper('Magento\Catalog\Helper\Image')->init($product, $image)->resize(300)->getUrl();
+            ?>
+
+            <img src="<?php echo $productImage; ?>"/>
+        </div>
+        <?php endif;?>
+        <h2 class="product-name"><a href="<?php echo $product->getUrl();?>" title="<?php echo $_item->getName(); ?>"><?php echo $_item->getName(); ?></a></h2>
+        <?php if ($_options = $block->getOptionList()): ?>
+            <dl class="item-options">
+                <?php foreach ($_options as $_option) : ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                    <dt><?php echo $block->escapeHtml($_option['label']) ?></dt>
+                    <dd>
+                        <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                            <?php /* @escapeNotVerified */
+                            echo $_formatedOptionValue['full_view'] ?>
+                        <?php else: ?>
+                            <?php /* @escapeNotVerified */
+                            echo $_formatedOptionValue['value'] ?>
+                        <?php endif; ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+    </td>
+
+    <td class="a-center qty-box">
+        <div class="box-qty" data-item-id="<?php echo $_item->getId(); ?>">
+
+            <span id="qty-<?php echo $_item->getId(); ?>" class="qty qty-item-display"><?php echo $_item->getQty(); ?></span>
+            <input type="hidden" id="qty-item-<?php echo $_item->getId() ?>"
+                   name="qty-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getQty(); ?>" class="qty-item">
+
+            <div class="control-qty">
+                <div data-change-type="add" class="osc-add" id="osc-add-<?php echo $_item->getId();?>" itemId="<?php echo $_item->getId(); ?>"></div>
+                <div data-change-type="minus" class="osc-minus" itemId="<?php echo $_item->getId(); ?>"></div>
+            </div>
+        </div>
+    </td>
+    <td class="a-right last">
+        <span class="cart-price">
+            <?php
+                if ($this->helper('Magento\Tax\Helper\Data')->displayCartPriceInclTax() || $this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices()) {
+                    echo $block->getRowTotalInclTaxHtml($_item);
+                }
+                if ($this->helper('Magento\Tax\Helper\Data')->displayCartPriceExclTax() || $this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices()) {
+                    echo $block->getRowTotalExclTaxHtml($_item);
+                }
+            ?>
+        </span>
+    </td>
+</tr>

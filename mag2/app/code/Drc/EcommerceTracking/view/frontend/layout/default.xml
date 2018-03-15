@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+          <block class="Drc\EcommerceTracking\Block\Tm" name="drc_gtm_datalayer" as="drc_gtm_datalayer" template="data_layer.phtml" />
+          <block class="Drc\EcommerceTracking\Block\GtmCode" name="gtm_code" as="gtm_code" template="gtm_code.phtml" />
+        </referenceContainer>
+        <referenceContainer name="after.body.start">
+          <block class="Drc\EcommerceTracking\Block\Analytics" name="analytics" as="analytics" template="analytics.phtml" />
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Drc\EcommerceTracking\Block\Code" 
+                name="drc.facebookpixel.checkout.success" 
+                template="Drc_EcommerceTracking::code.phtml" 
+                after="-" 
+                ifconfig="googletagmanager/fbgeneral/enabled">
+                    <block class="Drc\EcommerceTracking\Block\Purchase" 
+                        name="drc.facebookpixel.checkout.success.purchase" 
+                        template="Drc_EcommerceTracking::purchase.phtml" 
+                        after="-" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

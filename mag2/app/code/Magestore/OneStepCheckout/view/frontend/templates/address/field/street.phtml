@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Address\Field\Street $block
+ *  @var \Magestore\OneStepCheckout\Helper\Data $oscHelper;
+
+ */
+?>
+
+<?php
+$oscHelper = $this->helper('Magestore\OneStepCheckout\Helper\Data');
+$streetLine = $oscHelper->getStreetLine();
+?>
+    <input
+        type="text"
+        <?php echo $block->isRequired() ? 'required=""': ''?>
+        class="input-text <?php echo $block->getFieldItemClass() ?> field-street <?php echo $block->isRequired() ? 'required-entry': ''?>"
+        value="<?php echo $block->escapeHtml($block->getValue()) ?>" id="<?php echo $block->getHtmlPrefix() ?>:street1"
+        name="<?php echo $block->getHtmlPrefix() ?>[street][]" title="<?php echo $block->getTitle() ?>"
+        placeholder="<?php echo __('Enter a location') ?>",
+        data-field-id="<?php echo $block->getIdField() ?>"
+        >
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label for="<?php echo $block->getHtmlPrefix() ?>:street1" class="<?php echo $block->isRequired() ? 'required': ''?>"
+           id="<?php echo $block->getHtmlPrefix() ?>-street-label">
+        <?php echo $block->getLabel() ?><?php echo $block->isRequired() ? ' <em>*</em>': ''?>
+    </label>
+<?php for ($index = 2; $index <= $streetLine ; $index++) {?>
+    <input type="text"
+           class="input-text <?php echo $block->getFieldItemClass() ?> "
+           value="" id="<?php echo $block->getHtmlPrefix() ?>:street<?php echo $index?>"
+           name="<?php echo $block->getHtmlPrefix() ?>[street][]"
+           title="<?php echo __('Street Address %1', $index) ?>" style="margin-top:10px;"
+           data-field-id="<?php echo $block->getIdField() ?>"
+        >
+    <span class="highlight"></span>
+    <span class="bar"></span>
+<?php } ?>
+
+<?php echo $block->getAdditionHtml() ?>

@@ -1,0 +1,12 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\Sidebar\Cms */
+?>
+<?php
+    $cmsBlock = $block->getCmsBlock();
+?>
+<?php if ($cmsBlock && $cmsBlock->getContent()): ?>
+    <div class="aw-blog-sidebar__block aw-blog-sidebar-block">
+        <h3 class="aw-blog-sidebar-block__title"><?php echo $cmsBlock->getTitle() ?></h3>
+        <div class="aw-blog-sidebar-block__content"><?php echo $block->getCmsBlockHtml($cmsBlock) ?></div>
+    </div>
+<?php endif; ?>

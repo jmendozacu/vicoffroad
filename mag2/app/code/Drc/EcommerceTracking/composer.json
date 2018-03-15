@@ -1,0 +1,16 @@
+{
+    "name": "drc/ecommercetracking",
+    "description":"Ecommerce Tracking for Magento 2",    
+    "require": {
+        "php": "~5.6.0|7.0.2|~7.0.6",
+        "magento/module-integration": "2.*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "Drc\\EcommerceTracking\\": ""
+        }
+    }
+}

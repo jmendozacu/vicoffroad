@@ -1,0 +1,181 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div id="checkout-review-load" class="default-box checkout-review-load">
+    <?php echo $this->getChildHtml('info') ?>
+</div>
+<!-- Begin of Discount section -->
+<?php $couponCode = $this->getQuote()->getCouponCode(); ?>
+<?php if ($block->isShowDiscount()):?>
+<div class="onestepcheckout-discount">
+    <div class="discount-form">
+        <div class="input-box">
+            <input class="input-text" id="coupon_code_onestepcheckout" autocomplete="off" name="coupon_code"
+                   class="osc-additional-data"
+                   value="<?php echo $couponCode; ?>" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label for="coupon_code_onestepcheckout"><?php echo __('Enter coupon code here') ?> </label>
+        </div>
+        <div class="actions-button">
+            <button type="button" id="add_coupon_code_button" class="apply-coupon"
+                    style="<?php if (!$couponCode) echo 'display:block'; else echo 'display:none'; ?>"
+                    title="<?php echo __('Apply Coupon') ?>"
+                    value="<?php echo __('Apply Coupon') ?>">
+                <span><span><?php echo __('Apply') ?></span></span>
+            </button>
+            <button type="button" id="remove_coupon_code_button" class="apply-coupon"
+                    style="<?php if ($couponCode) echo 'display:block'; else echo 'display:none'; ?>"
+                    title="<?php echo __('Cancel Coupon') ?>"
+                    value="<?php echo __('Cancel Coupon') ?>" <?php if (1): ?>
+                style="display:none;"<?php endif ?>>
+                <span><span><?php echo __('Cancel') ?></span></span>
+            </button>
+        </div>
+    </div>
+</div>
+<?php endif;?>
+<!-- End of discount section-->
+<?php if ($block->isShowComment()): ?>
+    <div class="onestepcheckout-comment">
+    <textarea col="15" name="billing[onestepcheckout_comment]" id="onestepcheckout_comment"
+              class="osc-additional-data"
+              placeholder="Leave your comment"></textarea>
+    </div>
+<?php endif; ?>
+<!-- Gift message for order -->
+<?php $isEnableGiftMessage = $block->enableGiftMessage();?>
+<?php if ($isEnableGiftMessage): ?>
+    <div class="onestepcheckout-giftmessage">
+        <?php if (!$block->getQuote()->isVirtual()): ?>
+            <?php echo $this->helper('Magestore\OneStepCheckout\Helper\Message')->
+            getInline('onepage_checkout', $block->getQuote()) ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+<?php if ($block->isShowNewsletter()): ?>
+    <div class="onestepcheckout-newsletter  checkbox-group">
+        <input type="checkbox"
+            <?php if ($block->isSubscribeByDefault()): ?>
+                checked="checked"
+            <?php endif; ?>
+               id="newsletter_subscriber_checkbox"
+               name="billing[newsletter_subscriber_checkbox]" class="checkbox osc-additional-data">
+        <label class="label--checkbox" for="newsletter_subscriber_checkbox">
+            <span class="check"></span>
+            <span class="box-check"></span>
+            <?php echo __("Sign Up for Our Newsletter"); ?></label>
+    </div>
+<?php endif; ?>
+
+<!-- Gift wrap for order -->
+<?php if ($block->isEnableGiftWrap()):?>
+    <?php $giftwrapAmount = $block->getOrderGiftWrapAmount();?>
+    <div class="onestepcheckout-giftwrap checkbox-group">
+        <input class="onestepcheckout_giftwrap_checkbox checkbox osc-additional-data" type="checkbox" name="onestepcheckout_giftwrap_checkbox"
+               id="onestepcheckout_giftwrap_checkbox"
+               value="1" <?php if ($block->checkGiftWrapSession()):?> checked="checked"<?php endif;?>/>
+        <label class="label--checkbox" for="onestepcheckout_giftwrap_checkbox"><?php echo __('Gift wrap');?>
+            <span class="check"></span>
+            <span class="box-check"></span>
+            <strong><?php echo  $this->helper('Magento\Checkout\Helper\Data')->formatPrice($block->getOrderGiftWrapAmount()); ?></strong>
+        </label>
+    </div>
+<?php endif;?>
+<!-- Survey -->
+<?php if ($block->enableSurvey()): ?>
+    <div class="onestepcheckout-survey" id="">
+        <?php
+        $selectedSurveyFields = $this->getRequest()->getPost('onestepcheckout-survey', false);
+        $surveyValues = $block->getSurveyValues();
+        $enableFreeText = $block->enableFreeText();
+
+        ?>
+        <label for="id_survey"><?php echo $block->getSurveyQuestion(); ?></label>
+
+        <div class="survey-wrap">
+            <div class="mdl-selectfield">
+                <select style="" class="osc-additional-data" name="billing[onestepcheckout-surveybilling]" id="id_survey">
+                    <option value=""><?php echo __('Please choose'); ?></option>
+                    <?php foreach ($surveyValues as $value => $label):
+                        $selected = (!empty($selectedSurveyFields) && $selectedSurveyFields == $value) ? ' selected' : '';
+                        ?>
+                        <option value="<?php echo $value ?>" <?php echo $selected; ?>><?php echo $label['value'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                    <?php if ($enableFreeText):
+                        $selected = (empty($surveyValues[$selectedSurveyFields]) && $selectedSurveyFields != '') ?
+                            'selected' : '';
+                        ?>
+                        <option value="freetext" <?php echo $selected; ?>><?php echo __('Other'); ?></option>
+                    <?php endif; ?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <?php if ($block->enableFreeText()): ?>
+        <script type="text/javascript">
+            require([
+                'jquery'
+            ], function ($) {
+                $('#id_survey').change(function () {
+                    if ($('#id_survey').val() == 'freetext') {
+                        $('#id_survey_freetext_div').show();
+                    } else {
+                        $('#id_survey_freetext_div').hide();
+                    }
+                });
+            });
+
+        </script>
+        <div id='id_survey_freetext_div' class="onestepcheckout-survey-freetext"
+            <?php echo((!empty($selectedSurveyFields) && $selectedSurveyFields == 'freetext') ? ''
+                : ' style="display: none;"'); ?>>
+            <textarea id="id_survey_freetext" placeholder="<?php echo __('Please specify'); ?>"
+                      class="osc-additional-data"
+                      name="billing[onestepcheckout-survey-freetext]"></textarea>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<?php if ($block->isShowTermCondition()): ?>
+    <div class="onestepcheckout-terms-conditions checkbox-group">
+        <input type="checkbox" class="required-entry checkbox" value="0" id="terms_conditions_checkbox_id"
+               name="terms_conditions_checkbox"
+               required=""
+        >
+        <label class="label--checkbox" for="terms_conditions_checkbox_id">
+            <span class="check"></span>
+            <span class="box-check"></span>
+            <?php echo __('I read and agree to'); ?>
+            <a href="javascript:void(0);" target="_blank" id="onestepcheckout-toc-link">
+                <?php echo __('Terms and Conditions'); ?></a>
+        </label>
+    </div>
+<?php endif; ?>
+<script type="javascript">
+    require(['jquery', 'magestore/orderReview'], function ($) {
+        $('.onestepcheckout-review-info').orderReview();
+    });
+</script>

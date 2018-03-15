@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @see \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+<?php if ($block->getTotals()): ?>
+    <?php $_colspan = 2; ?>
+    <?php /* @escapeNotVerified */ echo $block->renderTotals(null, $_colspan); ?>
+    <?php /* @escapeNotVerified */ echo $block->renderTotals('footer', $_colspan); ?>
+    <?php if ($block->needDisplayBaseGrandtotal()):?>
+        <tr class="totals charge">
+            <th class="mark" colspan="<?php /* @escapeNotVerified */ echo $_colspan; ?>" scope="row">
+                <?php /* @escapeNotVerified */ echo __('Your credit card will be charged for') ?>
+            </th>
+            <td class="amount" data-th="<?php echo $block->escapeHtml(__('Your credit card will be charged for')); ?>">
+                <?php /* @escapeNotVerified */ echo $this->helper('Magento\Checkout\Helper\Data')->convertPrice($block->getBaseGrandTotal()); ?>
+            </td>
+        </tr>
+    <?php endif?>
+<?php endif; ?>

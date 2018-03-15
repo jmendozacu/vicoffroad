@@ -1,0 +1,114 @@
+<?php
+$description = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($block->getProduct(), $block->getProduct()->getDescription(), 'description');
+$short_description = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($block->getProduct(), $block->getProduct()->getShortDescription(), 'short_description');
+$specifications = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($block->getProduct(), $block->getProduct()->getSpecifications(), 'specifications');
+$inthebox = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($block->getProduct(), $block->getProduct()->getInTheBox(), 'in_the_box');
+$inthebox2 = $block->getProduct()->getData('in_the_box2');
+$inthebox3 = $block->getProduct()->getData('in_the_box3');
+$inthebox4 = $block->getProduct()->getData('in_the_box4');
+$warranty = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($block->getProduct(), $block->getProduct()->getWarranty(), 'warranty');
+//print_r($block->getProduct()->getData('in_the_box2'));exit;
+?>
+<div class="tab-description">
+    <?php if($description):?>
+    <div class="box-tab" id="box-tab-1">
+        <h2 class="title-tab">Key Features</h2>
+        <div class="box-content-tab">
+            <div class="content-text">
+                <?php /* @escapeNotVerified */ echo $short_description;  ?>
+                <?php /* @escapeNotVerified */ echo $description;  ?>
+                <?php if($warranty):?>
+                <div class="warranty-box">
+                        <h3>Warranty</h3>
+                        <?php /* @escapeNotVerified */ echo $warranty;  ?>
+                </div>
+                <?php endif; ?>
+                <?php if($inthebox || $inthebox2 || $inthebox3 || $inthebox4):?>
+                <div class="what-box">
+                        <h3>What’s In Box</h3>
+                        <p><?php /* @escapeNotVerified */ echo $inthebox;  ?></p>
+                        <p><?php /* @escapeNotVerified */ echo $inthebox2;  ?></p>
+                        <p><?php /* @escapeNotVerified */ echo $inthebox3;  ?></p>
+                        <p><?php /* @escapeNotVerified */ echo $inthebox4;  ?></p>
+                </div>
+                    
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <!-- end box-tab 1 -->
+    <?php endif; ?>
+    <?php if($specifications):?>
+    <div class="box-tab" id="box-tab-2">
+        <h2 class="title-tab">Specifications</h2>
+        <div class="box-content-tab">
+            <div class="content-text">
+                <?php /* @escapeNotVerified */ echo $specifications;  ?>
+            </div>
+            
+            
+        </div>
+    </div>
+    <!-- end box-tab 2 -->
+    <?php endif; ?>
+</div>
+<?php $layout = $block->getLayout(); ?>
+<?php
+    $html = $layout->renderElement('product.related');
+?>
+<?php /* @escapeNotVerified */ echo $html; ?>
+<?php
+   // $html = $layout->renderElement('product.info.upsell');
+?>
+<?php /* @escapeNotVerified */ //echo $html; ?>
+<!-- end tab-description -->
+<div id="horizontalTab">
+    <ul class="resp-tabs-list">          
+        <li><a href="javascript:void(0)" title="Delivery">Delivery </a></li>	
+        <li><a href="javascript:void(0)" title="Warranty">Warranty</a></li>
+        <li><a href="javascript:void(0)" title="Reviews">Reviews</a></li>
+        
+    </ul>
+    <div class="resp-tabs-container">
+        <div id="tabs-1" class="tab-content">
+            <div class="content-text">
+                <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('delivery_tabs')->toHtml();?>
+            </div>
+        </div>
+        <div id="tabs-2" class="tab-content">
+            <div class="content-text">
+                <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('returns_warranty_tabs')->toHtml();?>
+            </div>
+        </div>
+        <div id="tabs-3" class="tab-content">
+            <?php
+                $html = $layout->renderElement('reviews.tab');
+            ?>
+            <?php /* @escapeNotVerified */ echo $html; ?>
+        </div>
+        <!-- END tabs 2 -->
+    </div>
+</div>
+<!-- End horizontalTab -->
+<script>
+    require(['jquery'],function($){
+jQuery(document).ready(function(){
+    	jQuery('#horizontalTab').easyResponsiveTabs({
+        type: 'default', //Types: default, vertical, accordion           
+        width: 'auto', //auto or any width like 600px
+        fit: true,   // 100% fit in a container
+        closed: 'accordion', // Start closed if in accordion view
+        activate: function(event) { // Callback function if tab is switched
+            var tab = jQuery(this);
+            var info = jQuery('#tabInfo');
+            var name = jQuery('span', info);
+
+            name.text(tab.text());
+
+            info.show();
+        }  
+    });
+});
+    });
+</script>
+

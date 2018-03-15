@@ -1,0 +1,115 @@
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $categoryCollection = $objectManager->create('Magento\Catalog\Model\Category');
+    $category = $categoryCollection->load(3);
+    $childCategories = $category->getChildrenCategories();
+    $storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+    $currentStore = $storeManager->getStore();
+    $mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA).'catalog/category/';
+    
+    
+    $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+    /** Apply filters here */
+    $_productCollection->addAttributeToSelect('*');
+    $_productCollection->addCategoriesFilter(['in' => [5]]);
+    $_productCollection->setPageSize(3);
+    $_productCollection->load();
+?>
+
+<div class="sections nav-sections">
+    <div class="content">
+        <div class="section-items nav-sections-items" data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <div class="section-item-title nav-sections-item-title" data-role="collapsible">
+                <a class="nav-sections-item-switch" data-toggle="switch" href="#store.menu"></a>
+            </div>
+            <div class="section-item-content nav-sections-item-content" id="store.menu" data-role="content">
+                <nav class="navigation" role="navigation">
+                    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+                        <li class="title-menu ui-menu-item" role="presentation">
+                            <a title="Home" href="<?php echo $this->getUrl(); ?>" id="ui-id-3" class="ui-corner-all" tabindex="-1" role="menuitem">Home</a>
+                        </li>
+                        <?php $i = 0; foreach ($childCategories as $_category): ?>
+                        <?php 
+                            $_category = $objectManager->create('Magento\Catalog\Model\Category')->load($_category->getId());
+                            if($_category->getData('include_in_menu') == 0){continue;} 
+                        ?>
+                        <li  class="level0 nav-1 first level-top">
+                            <a href="<?php echo $_category->getUrl(); ?>"  class="level-top">
+                                <?php if($_category->getThumbnail()):?>
+                                <img class="category-image" src="<?php echo $mediaUrl.$_category->getThumbnail(); ?>" alt="<?php echo $_category->getName(); ?>" />
+                            <?php endif; ?>
+                                <span><?php echo $_category->getName(); ?></span>
+                            </a>
+                            <?php
+                                $subChildCategories = $_category->getChildrenCategories();
+                                if(count($subChildCategories)):
+                            ?>
+                            <div class="sub-menu">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-5 col-md-5 column">
+                                            <h3>Shop <?php echo $_category->getName(); ?></h3>
+                                            <ul class="level1">
+                                                <?php $i = 0; foreach ($subChildCategories as $_subCategory): ?>
+                                                <?php 
+                                                    $_subCategory = $objectManager->create('Magento\Catalog\Model\Category')->load($_subCategory->getId());
+                                                    if($_subCategory->getData('include_in_menu') == 0){continue;} 
+                                                ?>
+                                                <li>
+                                                    <a href="<?php echo $_subCategory->getUrl(); ?>" title="<?php echo $_subCategory->getName(); ?>">
+                                                    <?php if($_subCategory->getThumbnail()):?>
+                                                        <img src="<?php echo $mediaUrl.$_subCategory->getThumbnail(); ?>" alt="<?php echo $_subCategory->getName(); ?>" />
+                                                    <?php endif; ?>
+                                                        <span><?php echo $_subCategory->getName(); ?></span>
+                                                    </a>
+                                                </li>
+                                                <?php endforeach; ?>
+                                                <li><a class="all" href="<?php echo $_category->getUrl(); ?>">All <?php echo $_category->getName(); ?></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-3 col-md-3 column shop-by">
+                                            <h3>Shop By</h3>
+                                            <ul class="level1">
+                                                <li><a href="<?php echo $this->getUrl('special-offers.html');?>" title="Special Offers">Special Offers</a></li>
+                                                <li><a href="<?php echo $this->getUrl('best-sellers.html');?>" title="Best Sellers">Best Sellers</a></li>
+                                                <li><a href="<?php echo $this->getUrl('featured-products.html');?>" title="Featured Product">Featured Product</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4 col-md-4 column">
+                                            <h3>Best Sellers</h3>
+                                            <div class="best-seller">
+                                                <?php foreach ($_productCollection as $_product): ?>
+                                                <?php
+                                                    $imageBlock =  $block->getLayout()->createBlock('Magento\Catalog\Block\Product\ListProduct');
+                                                    $productImage = $imageBlock->getImage($_product, 'category_page_grid');
+                                                ?>
+                                                <div class="item">
+                                                    <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>">
+                                                        <?php echo $productImage->toHtml()  ?>
+                                                    </a>
+                                                </div>
+                                                <?php endforeach; ?>
+                                                <div class="view-all">
+                                                    <a href="<?php echo $this->getUrl('best-sellers.html');?>">View All Best Sellers</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </li>
+                        <?php endforeach; ?>
+                        <li>
+                            
+                            <div class="menu-help">
+                                <a href="<?php echo $this->getUrl('contact');?>" title="Help">Help</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MENU TOP -->

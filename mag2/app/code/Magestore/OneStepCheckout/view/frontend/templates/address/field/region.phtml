@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Address\Field\Region $block */
+?>
+<label for="<?php echo $block->getHtmlId() ?>" class="<?php echo $block->isRequired() ? 'required': ''?>">
+    <?php echo $block->getLabel() ?><?php echo $block->isRequired() ? ' <em>*</em>': ''?>
+</label>
+<select style="<?php echo $block->getStyle() ?>; display: none;"
+        <?php echo $block->isRequired() ? 'required=""': ''?>
+        class="<?php echo $block->getFieldItemClass() ?> <?php echo $block->isRequired() ? 'validate-select': ''?>"
+        title="<?php echo $block->getTitle() ?>"
+        name="<?php echo $block->getHtmlPrefix() ?>[region_id]"
+        id="<?php echo $block->getHtmlPrefix() ?>:region_id"
+        data-field-id="region_id"
+        data-default-option="<?php echo $block->escapeQuote($block->getOptionValue()) ?>"
+>
+    <option class="first-option" value=""><?php echo $block->getHeaderOption() ?></option>
+</select>
+<input style="<?php echo $block->getStyle() ?>"
+        <?php echo $block->isRequired() ? 'required=""': ''?>
+       type="text" title="<?php echo $block->getLabel() ?>" value=""
+       name="<?php echo $block->getHtmlPrefix() ?>[region]" id="<?php echo $block->getHtmlPrefix() ?>:region"
+       class="<?php echo $block->getFieldItemClass() ?> <?php echo $block->getHtmlPrefix() ?>-region-input <?php echo $block->isRequired() ? 'required-entry': ''?>"
+       value="<?php echo $block->escapeHtml($block->getValue()) ?>"
+       data-field-id="region"
+>
+<span class="highlight"></span>
+<span class="bar"></span>
+<?php echo $block->getAdditionHtml() ?>

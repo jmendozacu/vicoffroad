@@ -1,0 +1,48 @@
+/*amasty paction css styles*/
+.amasty-paction-form{
+    padding: 8px;
+}
+
+.amasty-paction-form table{
+    width: 100%;
+}
+
+.amasty-paction-form label{
+    display: inline-block;
+    margin-right: 8px;
+    max-width: 84px;
+    vertical-align: middle;
+}
+
+.amasty-paction-form input{
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.amasty-paction-form select{
+    vertical-align: middle;
+    max-width: 170px;
+    margin-right: 8px;
+}
+
+.amasty-paction-form button{
+    vertical-align: middle;
+}
+
+.amasty-paction-form td:nth-child(3) {
+    text-align: right;
+}
+
+.amasty-paction-form td:nth-child(2) {
+    text-align: center;
+}
+
+.action-select-wrap ul.action-menu{
+    max-height: none;
+}
+
+@-moz-document url-prefix() {
+    .action-select-wrap ul.action-menu{
+        max-height: 45rem;
+    }
+}

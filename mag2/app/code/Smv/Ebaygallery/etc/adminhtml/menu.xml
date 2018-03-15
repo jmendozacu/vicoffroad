@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="FME_Extensions::fmeextesnions" title="Smv Ebaygallery" module="Smv_Ebaygallery" sortOrder="70" resource="FME_Extensions::fmeextesnions"/>
+        <!-- FME Extensions -->
+        <add id="FME_Extensions::photogallery" title="Photo Gallery" module="Smv_Ebaygallery" sortOrder="70" parent="FME_Extensions::fmeextesnions" resource="FME_Extensions::fmeextesnions"/>
+   		
+        <!-- Manage Photogallery -->
+        <add id="Smv_Ebaygallery::manage_items" title="Manage Photogallery" module="Smv_Ebaygallery" sortOrder="80" action="photogalleryadmin/photogallery/index" parent="FME_Extensions::photogallery" resource="Smv_Ebaygallery::manage_items"/>
+    </menu>
+</config>

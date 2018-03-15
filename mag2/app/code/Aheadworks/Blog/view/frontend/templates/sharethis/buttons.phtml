@@ -1,0 +1,13 @@
+<?php
+/* @var $block \Magento\Framework\View\Element\Template */
+?>
+<?php
+    $shareUrl = $block->getShareUrl();
+    $sharingText = $block->getSharingText();
+?>
+<span class='st_facebook' st_url='<?php echo $shareUrl ?>' st_title='<?php echo $sharingText ?>'></span>
+<span class='st_twitter' st_url='<?php echo $shareUrl ?>' st_title='<?php echo $sharingText ?>'></span>
+<span class='st_googleplus' st_url='<?php echo $shareUrl ?>' st_title='<?php echo $sharingText ?>'></span>
+<span class='st_pinterest' st_url='<?php echo $shareUrl ?>' st_title='<?php echo $sharingText ?>'></span>
+<span class='st_linkedin' st_url='<?php echo $shareUrl ?>' st_title='<?php echo $sharingText ?>'></span>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>

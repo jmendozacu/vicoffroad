@@ -1,0 +1,20 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\PostList */
+?>
+<?php
+    $posts = $block->getPostCollection();
+?>
+<?php if ($posts->getSize()): ?>
+    <div class="aw-blog-posts">
+        <?php foreach ($posts as $post): ?>
+            <?php echo $block->getItemHtml($post) ?>
+        <?php endforeach; ?>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="toolbar toolbar-bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty">
+        <div><?php  echo __('No posts.') ?></div>
+    </div>
+<?php endif; ?>

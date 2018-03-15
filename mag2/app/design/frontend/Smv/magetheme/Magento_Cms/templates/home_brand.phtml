@@ -1,0 +1,41 @@
+<?php
+
+/** @var \Magestore\Shopbybrand\Block\Featurebrand $block */
+
+    $store = $block->storeManager()->getStore()->getId();
+    $featuredBrands = $block->getFeaturedBrands();
+    $showAsSlider = $block->getSystemConfig()->showFeatureBrandAsSlider();
+    $logo_width = $block->getSystemConfig()->logoWidth();
+    $logo_height = $block->getSystemConfig()->logoHeight();
+    $brandWidth = $logo_width + 50;
+?>
+<?php if (count($featuredBrands)):?>
+<div class="brand-logo">
+    <div class="content">
+        <h3 class="title-block">Our Brands <a href="<?php echo $this->getUrl('brand'); ?>" title="View All">View All</a></h3>
+        <div class="home-brands-content">
+            <?php 
+                $i = 0;
+                $noImg = '';
+
+                if($featuredBrands->getSize()){
+                    $noImg =  $block->getViewFileUrl('Magestore_Shopbybrand::images/shopbybrand/no-image.png');
+                }
+                foreach ($featuredBrands as $featuredBrand) : 
+                    $i++;
+                    $path = $featuredBrand->getData('logo');
+                    $img = ($featuredBrand->getData('logo')==NULL) ? $noImg : $block->getImageHelper()
+                        ->getMediaUrlImage($featuredBrand->getData('logo'));
+
+            ?>
+            <div class="article">
+                <a href="<?php echo $block->getBrandUrl($featuredBrand); ?>" title="Logo">
+                    <img src="<?php echo $img; ?>" alt="<?php echo $featuredBrand->getBrandName(); ?>" />
+                </a>
+            </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+</div>
+<!-- END brands-content -->
+<?php endif; ?>

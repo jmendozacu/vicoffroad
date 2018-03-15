@@ -1,0 +1,105 @@
+<link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet"/>
+
+<div class="header-top">
+    <ul class="utility-links">
+        <?php
+        $helper = $this->helper('Smv\Pdshipping\Helper\Data');
+        if (!$helper->isLoggedIn()):
+            ?>
+            <li class="account"><a title="Login or Sign up" href="<?php echo $this->getUrl('customer/account/login'); ?>">Login or Sign up</a></li>
+        <?php else: ?>
+            <li class="account"><a href="<?php echo $this->getUrl('customer/account'); ?>" title="My Account" class="link-login">My Account</a></li>
+            <li class="account"><a href="<?php echo $this->getUrl('customer/account/logout'); ?>" title="Logout" class="link-login">Logout</a></li>
+        <?php endif; ?>
+        <li class="wishlist"><a title="Wishlist" href="<?php echo $this->getUrl('wishlist'); ?>">Wishlist</a></li>
+        <li class="help"><a href="<?php echo $this->getUrl('contact'); ?>" title="Help">Help</a></li>
+    </ul>
+    <?php $layout = $block->getLayout(); ?>
+        <?php
+            echo $layout->renderElement('minicart');
+        ?>
+</div>
+
+<div class="header-main">
+    <div class="header-main-left">
+        <span data-action="toggle-nav" class="action nav-toggle"><span>Toggle Nav</span></span>
+        <?php
+        $blockObj = $block->getLayout()->createBlock('Magento\Theme\Block\Html\Header\Logo');
+        ?>
+        <strong class="logo">
+            <a href="<?php echo $block->getUrl(); ?>" title="<?php echo $blockObj->getLogoAlt(); ?>"><img src="<?php echo $blockObj->getLogoSrc(); ?>" alt="<?php echo $blockObj->getLogoAlt(); ?>"  /></a>
+        </strong>
+    </div>
+    <div class="header-main-center">
+        <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header_contact')->toHtml();?>
+        
+    </div>
+    <div class="header-main-right">
+        <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header_text_block_1')->toHtml();?>
+        <div class="header-right header-form">
+            <a class="home" href="<?php echo $this->getUrl(); ?>">Home</a>
+            <span class="icon-search"></span>
+            <div class="block block-search">
+                <div class="block block-content">
+                    <?php echo $this->getChildHtml('topSearch'); ?>
+
+                </div>
+            </div>
+            <!-- end block-search -->
+        </div>
+		<div class="title-check-out-header">
+			<h2>One Step Checkout</h2>
+		</div>
+    </div>
+</div>
+<span itemscope itemtype="https://schema.org/Organization" style="display:none;">
+  <link itemprop="url" href="https://www.vicoffroad.com.au">
+  <a itemprop="sameAs" href="https://www.facebook.com/vicoffroadau/">FB</a>
+  <a itemprop="sameAs" href="https://www.twitter.com/vicoffroad">Twitter</a>
+</span>
+<!-- BEGIN: Google Trusted Store -->
+<script type="text/javascript">
+//<![CDATA[
+var gts = gts || [];
+gts.push(["id", "716897"]);
+(function() {
+var gts = document.createElement("script");
+gts.type = "text/javascript";
+gts.async = true;
+gts.src = "https://www.googlecommerce.com/trustedstores/api/js";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(gts, s);
+})();
+//]]>
+</script>
+<!-- END: Google Trusted Store -->
+<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5442172"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript><img alt="Google Trusted Store" src="//bat.bing.com/action/0?ti=5442172&Ver=2" height="0" width="0" style="display:none; visibility: hidden;" /></noscript>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "Vicoffroad 4x4 Accessories",
+  "url": "https://www.vicoffroad.com.au",
+"sameAs" : [ "https://www.facebook.com/vicoffroadau",
+                    "https://twitter.com/vicoffroad",
+                    "https://www.youtube.com/channel/UC3Y-Lus7eqbXkECHsP58H2Q",
+                                "https://plus.google.com/+VicoffroadAuAltona",
+                    "https://www.instagram.com/vicoffroad_australia/" ]
+}</script>
+<script>
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58270272-1', 'auto');
+
+  ga('require', 'GTM-TK7ZRZG');
+
+  ga('send', 'pageview');
+
+</script>

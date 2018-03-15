@@ -1,0 +1,27 @@
+<?php 
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2016 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+
+/** @var $this \Amasty\Cart\Block\Product */
+$_product = $this->getProduct(); 
+
+?>
+<p class="popup-title">
+    
+    <?php echo __('Item has been added to your cart.')?>
+        
+</p>
+<div class="popup-content" style="width: 100%;">
+    <a href="<?php echo $_product->getProductUrl(); ?>"
+       title="<?php echo $_product->getName(); ?>"
+       tabindex="-1"
+       class="product-item-photo">
+        <?php echo $block->getImage($_product, 'cart_page_product_thumbnail')->toHtml(); ?>
+    </a>
+    <a class="product-name" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_product->getName(); ?>">
+        <?php echo $_product->getName()?>
+    </a>
+</div>

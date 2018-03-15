@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Address\Field\Email $block */
+?>
+<input style="<?php echo $block->getStyle() ?>"
+       type="text" <?php echo $block->isRequired() ? 'required=""': ''?>
+       class="input-text <?php echo $block->getFieldItemClass() ?> <?php echo $block->isRequired() ? 'required-entry': ''?>"
+       title="<?php echo $block->getTitle() ?>" value="<?php echo $block->getValue() ?>"
+       name="<?php echo $block->getHtmlName() ?>" id="<?php echo $block->getHtmlId() ?>"
+       value="<?php echo $block->escapeHtml($block->getValue()) ?>"
+       data-field-id="<?php echo $block->getIdField() ?>"
+>
+<span class="highlight"></span>
+<span class="bar"></span>
+<label for="<?php echo $block->getHtmlId() ?>" class="<?php echo $block->isRequired() ? 'required': ''?>">
+    <?php echo $block->getLabel() ?><?php echo $block->isRequired() ? ' <em>*</em>': ''?>
+</label>
+<span style="display:none;" id="valid_email_address_image" class="valid-email-address-image">
+    <img width="18" alt="Valid Email Address" title="Valid Email Address"
+         src="<?php echo $block->getViewFileUrl('Magestore_OneStepCheckout::images/onestepcheckout/material/valid.gif') ?>" />
+</span>
+<input type='hidden' name='emailvalid' id='emailvalid' value='1' />
+<div class="error-message email-error-message" id="email-error-message">
+    <p class="content"></p>
+</div>
+<?php echo $block->getAdditionHtml() ?>

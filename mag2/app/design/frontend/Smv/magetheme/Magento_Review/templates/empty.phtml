@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<p class="no-rating"><a href="javascript:void(0);" class="action add active-review"><?php /* @escapeNotVerified */ echo __('Be the first to review this product') ?></a></p>
+<script type="text/javascript">
+    require(['jquery'],function($){
+    jQuery(document).ready(function(){
+        jQuery('.active-review').click(function(){
+            jQuery('.resp-tab-item').removeClass('resp-tab-active');
+            jQuery('#review-tabs-title').addClass('resp-tab-active');
+            jQuery('#tabs-1').hide();
+            jQuery('#tabs-1').removeClass('resp-tab-content-active');
+            jQuery('#tabs-2').addClass('resp-tab-content-active');
+            jQuery(window).scrollTop(jQuery("#review-form").offset().top);
+        });
+    });
+    });
+</script>

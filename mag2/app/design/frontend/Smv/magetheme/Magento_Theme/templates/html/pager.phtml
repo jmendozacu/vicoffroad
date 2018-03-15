@@ -1,0 +1,100 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Pager template
+ *
+ * @see \Magento\Theme\Block\Html\Pager
+ */
+?>
+<?php if ($block->getCollection()->getSize()): ?>
+<div class="pages" style="display: block;float: right;">
+        <?php if (!$block->getShowAmounts()): ?>
+        <p>
+            <span class="toolbar-number">
+            <?php if ($block->getLastPageNum()>1): ?>
+                <?php /* @escapeNotVerified */ echo __('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum()) ?>
+            <?php elseif ($block->getTotalNum() == 1): ?>
+                <?php /* @escapeNotVerified */ echo __('%1 Item', $block->getTotalNum()) ?>
+            <?php else: ?>
+                <?php /* @escapeNotVerified */ echo __('%1 Item(s)', $block->getTotalNum()) ?>
+            <?php endif; ?>
+            </span>
+        </p>
+        <?php endif ?>
+            <ol>
+            <?php if (!$block->isFirstPage()): ?>
+                <li class="item pages-item-previous">
+                    <?php $text = $block->getAnchorTextForPrevious() ? $block->getAnchorTextForPrevious() : '';?>
+                    <a class="<?php /* @escapeNotVerified */ echo $text ? 'link ' : 'action '?> previous" href="<?php /* @escapeNotVerified */ echo $block->getPreviousPageUrl() ?>" title="<?php /* @escapeNotVerified */ echo $text ? $text : __('Previous') ?>">
+                        <span class="label"><?php /* @escapeNotVerified */ echo __('Page') ?></span>
+                        <span><?php /* @escapeNotVerified */ echo $text ? $text : __('Previous') ?></span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowFirst()): ?>
+                <li class="item">
+                    <a class="page first" href="<?php /* @escapeNotVerified */ echo $block->getFirstPageUrl() ?>">
+                        1
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowPreviousJump()): ?>
+                <li class="item">
+                    <a class="page previous jump" title="" href="<?php /* @escapeNotVerified */ echo $block->getPreviousJumpUrl() ?>">
+                        <span>...</span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php foreach ($block->getFramePages() as $_page): ?>
+                <?php if ($block->isPageCurrent($_page)): ?>
+                    <li class="item current">
+                        <?php /* @escapeNotVerified */ echo $_page ?>
+                    </li>
+                <?php else: ?>
+                    <li>
+                        <a href="<?php /* @escapeNotVerified */ echo $block->getPageUrl($_page) ?>">
+                            <?php /* @escapeNotVerified */ echo $_page ?>
+                        </a>
+                    </li>
+                <?php endif;?>
+            <?php endforeach;?>
+
+            <?php if ($block->canShowNextJump()): ?>
+                <li class="item">
+                    <a class="page next jump" title="" href="<?php /* @escapeNotVerified */ echo $block->getNextJumpUrl() ?>">
+                        <span>...</span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowLast()): ?>
+              <li class="item">
+                  <a class="page last" href="<?php /* @escapeNotVerified */ echo $block->getLastPageUrl() ?>">
+                      <span class="label"><?php /* @escapeNotVerified */ echo __('Page') ?></span>
+                      <span><?php /* @escapeNotVerified */ echo $block->getLastPageNum() ?></span>
+                  </a>
+              </li>
+            <?php endif;?>
+
+            <?php if (!$block->isLastPage()): ?>
+                <li class="item pages-item-next">
+                    <?php $text = $block->getAnchorTextForNext() ? $block->getAnchorTextForNext() : '';?>
+                    <a class="bt-page next i-next" href="<?php /* @escapeNotVerified */ echo $block->getNextPageUrl() ?>" title="<?php /* @escapeNotVerified */ echo $text ? $text : __('Next') ?>">
+                        <?php /* @escapeNotVerified */ echo $text ? $text : __('Next') ?>
+                    </a>
+                </li>
+            <?php endif;?>
+            </ol>
+    </div>
+<?php endif ?>

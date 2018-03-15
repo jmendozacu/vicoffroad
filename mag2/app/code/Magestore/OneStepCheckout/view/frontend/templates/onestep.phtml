@@ -1,0 +1,283 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep $block */
+
+?>
+<?php echo $this->getChildHtml('onestepcheckout.style') ?>
+<?php $isVirtualQuote = $block->isVirtualQuote();?>
+<ol class="one-step-checkout three-columns-new-osc clearfix">
+    <li>
+        <h1 class="checkout_header">
+            <?php
+            if ($block->getOneStepTitle()) {
+                echo $block->getOneStepTitle();
+            } else {
+                echo __('One Step Checkout');
+            }
+            ?>
+        </h1>
+
+        <p class="subtitle">
+            <?php
+            if ($block->getCheckoutDescription()) {
+                echo $block->getCheckoutDescription();
+            } else {
+                echo __('Please fill in the fields below and click Place order to complete your purchase!');
+            }
+            ?>
+        </p>
+    </li>
+    <?php if ($block->canShowLoginLink()) : ?>
+        <li id='onestepcheckout_login_link' class="onestepcheckout-login-link">
+            <a href="javascript:void(0);" id="onestepcheckout-login-link"><span>&nbsp;</span>
+                <?php
+                if ($block->getLoginTitle()) {
+                    echo $block->getLoginTitle();
+                } else {
+                    echo __('Click to login');
+                }
+                ?>
+            </a>
+        </li>
+    <?php endif; ?>
+
+    <li class="address-order">
+        <div id="one-step-checkout-form"
+              data-mage-init='{
+                "magestore/oneStepCheckout": {
+                    "oneStepCheckoutConfig": <?php echo $block->escapeQuote($block->getOneStepCheckoutConfig()) ?>
+                }
+              }'
+        >
+            <div class="wrap-case-3colums">
+                <div class="wrap-case-3colums">
+                    <div class="address-information address-info-3-columns">
+                        <?php if (!$isVirtualQuote):?>
+                        <div id='onestepcheckout-shipping-section'>
+                            <?php echo $this->getChildHtml('onestepcheckout.shipping'); ?>
+                        </div>
+                        <?php else :?>
+                        <div id='onestepcheckout-shipping-section' class="onestepcheckout-billing-section">
+                            <?php echo $this->getChildHtml('onestepcheckout.billing'); ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="onestepcheckout-shipping-payment-review">
+                        <!--  None virtual quote-->
+                        <?php if (!$isVirtualQuote): ?>
+                            <div class="order-information shipping-method-information order-info-3-columns">
+                                <ol>
+                                    <li class="shipping-method" id="shipping-method-wrapper">
+                                        <?php echo $this->getChildHtml('onestepcheckout.shipping_method'); ?>
+                                    </li>
+                                    <?php if ($block->isShowDelivery()): ?>
+                                        <li class="delivery">
+                                            <div class="delivery_time_date">
+                                                <label for="delivery_date"><?php echo __('Select a date') ?>: </label>
+                                                <p class="datetime-delivery">
+                                                    <input readonly="readonly" id="delivery_date" class="osc-additional-data" type="text" size="7"
+                                                           value="<?php echo $block->getCurrentTime()->format('m/d/Y');  ?>"
+                                                           name="delivery[onestepcheckout-date]"/>
+                                                </p>
+
+                                                <div class="mdl-selectfield">
+                                                    <label for="delivery-time">
+                                                        <select id='delivery-time'
+                                                                class="osc-additional-data"
+                                                                name="delivery[onestepcheckout-time]">
+                                                            <?php for ($i = 0; $i <= 23; $i++): ?>
+                                                                <option value="<?php echo str_pad($i, 2, '0', STR_PAD_LEFT) ?>:00">
+                                                                    <?php echo str_pad($i, 2, '0', STR_PAD_LEFT) ?>:00
+                                                                </option>
+                                                            <?php endfor; ?>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php endif; ?>
+                                </ol>
+                                <div id="control_overlay_shipping"></div>
+
+                            </div>
+                            <span class="no-display">
+                                <label for="shipping_method">
+                                    <input name="shipping_method" type="radio" value="" id="s_method_"
+                                           checked="checked"/>
+                                </label>
+                            </span>
+                        <?php endif; ?>
+                        <!--  End None virtual quote-->
+
+                        <div class="order-review-section">
+                            <ol>
+                                <li class="payment-method">
+                                    <h3 id="payment_method_step_header" class="step_4">
+                                        <?php echo __('Payment Method'); ?>
+                                    </h3>
+                                    <div class="ajax-loader3 ajax-loader-payment" id="ajax-payment"></div>
+                                    <div class="clear"></div>
+                                    <div id="onestepcheckout-payment-methods" class="onestepcheckout-payment-methods" data-bind="scope: 'payment' ">
+                                            <!-- ko template: getTemplate() --><!-- /ko -->
+                                    </div>
+                                </li>
+                            </ol>
+                            <div id="control_overlay_payment"></div>
+                        </div>
+
+                        <?php if (!$isVirtualQuote): ?>
+                            <div class="billing_other_address"
+                                 style="<?php echo $block->enableBillingDifferentAddress() ? '' : 'display: none;' ?>">
+                                <div class="input-box input-different-billing checkbox-group">
+                                    <input type="checkbox" class="checkbox" value="1" checked="checked"
+                                           id="billing:different_billing" name="billing[different_billing]">
+                                    <label class="label--checkbox" for="billing:different_billing">
+                                        <span class="check"></span>
+                                        <span class="box-check"></span>
+                                        <?php echo __('My billing and shipping address are the same') ?></label>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!$isVirtualQuote): ?>
+                        <div class="onestepcheckout-billing-section" style="display: none;">
+                            <?php echo $this->getChildHtml('onestepcheckout.billing'); ?>
+                        </div>
+                        <?php endif;?>
+                    </div>
+                    <div class="wrap-col-last-3">
+                        <div class="onestepcheckout-review-info">
+                            <ol>
+                                <li class="order-review-info">
+                                    <div class="ajax-loader3 ajax-loader-order-review" id="ajax-review"></div>
+                                    <div class="clear"></div>
+                                    <?php echo $this->getChildHtml('onestepcheckout.review') ?>
+                                    <div class="ajax-loader3 ajax-loader-order-review" id="ajax-loader3"></div>
+                                    <div id="control_overlay_review"></div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="button-set clearfix button-onestepcheckout">
+                            <div class="clear"></div>
+                            <button id="onestepcheckout-button-place-order" type="button"
+                                    title="<?php echo __('Place Order') ?>"
+                                    class="btn-proceed-checkout onestepcheckout-btn-checkout onestepcheckout-place">
+                            <span>
+                                <span class="title">
+                                    <?php echo __('Place order now') ?>
+                                </span>
+                            </span>
+                            </button>
+                            <button style="display: none"
+                                    id="onestepcheckout-button-continue-to-paypal" type="button"
+                                    title="<?php echo __('Place Order') ?>"
+                                    class="btn-continue-to-paypal action primary">
+                            <span>
+                                <span class="title">
+                                    <?php echo __('Continue to PayPal') ?>
+                                </span>
+                            </span>
+                            </button>
+                        </div>
+                        <div id="onestepcheckout-place-order-loading">
+                            <p>&nbsp;&nbsp;
+                                <?php echo __('Please wait, processing your order...') ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ol>
+<div id="onestepcheckout_popup_overlay"></div>
+<div id="loading-process"></div>
+<div id="notify-email-invalid">
+    <p>
+        <span><?php echo __('Email is ') ?></span>
+        <img
+            src="<?php echo $block->getViewFileUrl('Magestore_OneStepCheckout::images/onestepcheckout/material/invalidIcon.jpg'); ?>"/>
+        <?php echo __(' please check it again!') ?>
+    </p>
+</div>
+<div id="notify-email-invalid-overlay"></div>
+<script>
+    require(['jquery', 'magestore/applyCoupon'], function ($) {
+        $('.onestepcheckout-discount').applyCoupon();
+    });
+</script>
+
+<!--Get Checkout Config-->
+<script>
+    window.checkoutConfig = <?php /* @escapeNotVerified */ echo \Zend_Json::encode($block->getCheckoutConfig()); ?>;
+    window.oneStepCheckoutConfig = <?php /* @escapeNotVerified */ echo $block->getOneStepCheckoutConfig() ?> ;
+
+    // Create aliases for customer.js model from customer module
+    window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+    window.customerData = window.checkoutConfig.customerData;
+</script>
+
+<script>
+    require([
+        'mage/url',
+        'Magento_Ui/js/block-loader'
+    ], function (url, blockLoader) {
+        blockLoader("<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/loader-1.gif'); ?>");
+        return url.setBaseUrl('<?php /* @escapeNotVerified */ echo $block->getBaseUrl();?>');
+    })
+</script>
+<script>
+    require([
+        "jquery",
+        "mage/calendar"
+    ], function ($) {
+        $(".delivery_time_date").dateRange({
+            buttonText: "<?php echo __('Select Date') ?>",
+            from: {
+                id: "delivery_date"
+            },
+            to: {},
+            minDate: -0
+        });
+    });
+</script>
+<div id="checkout-loader" class="loading-mask">
+    <div class="loader">
+        <img src="<?php /* @escapeNotVerified */
+        echo $block->getViewFileUrl('images/loader-1.gif'); ?>" alt="Loading..." style="position: absolute;">
+    </div>
+</div>
+<?php
+//file_put_contents('/home/zero/test.json', $block->getJsLayout());
+?>
+<script type="text/x-magento-init">
+    {
+        "#one-step-checkout-form": {
+            "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout(); ?>
+        },
+        "[data-block='minicart']": {
+            "Magestore_OneStepCheckout/js/action/minicart-after-update": {}
+        }
+    }
+</script>

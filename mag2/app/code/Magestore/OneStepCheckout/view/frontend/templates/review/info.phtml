@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div id="checkout-review-table-wrapper">
+    <h3 style="float:left" id="review_step_header">
+        <?php echo __('Order Review'); ?>
+    </h3>
+    <table id="checkout-review-table" class="data-table">
+        <colgroup>
+            <col>
+            <col width="1">
+            <col width="1">
+            <col width="1">
+        </colgroup>
+        <tbody>
+        <tr class="first odd">
+            <th class="a-left" rowspan="1" style="width:70%">Product</th>
+            <th class="a-right" rowspan="1" style="width:16%; padding:10px 20px">Qty</th>
+            <th class="a-right" colspan="1" style="width:30%">Subtotal</th>
+
+            <?php foreach ($block->getItems() as $_item): ?>
+                <?php echo $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+            <?php echo $this->getChildHtml('osc.totals'); ?>
+        <tbody>
+
+    </table>
+</div>

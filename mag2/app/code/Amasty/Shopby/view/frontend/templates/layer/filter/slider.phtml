@@ -1,0 +1,86 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2016 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\Shopby\Model\FilterSetting $filterSetting */
+/** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+?>
+<?php $_widgetFrom = 'am_shopby_filter_widget_' . $filterSetting->getFilterCode() . '_from'?>
+<?php $_widgetTo = 'am_shopby_filter_widget_' . $filterSetting->getFilterCode() . '_to'?>
+<ol class="items am_shopby_filter_items_<?=$filterSetting->getFilterCode();?>">
+    <li>
+        <div id="am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>" class="am_shopby_slider_container">
+            <div id="am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>_slider"></div>
+            <div id="am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>_display" style="text-align: center"></div>
+        </div>
+
+        <script type="text/x-magento-init">
+            {
+                "#am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>": {
+                    "amShopbyFilterSlider": {
+                            "template":"<?php echo $fromToConfig['template']?>",
+                            "step":<?php echo floatval($fromToConfig['step'])?>,
+                            "from":<?php echo $fromToConfig['from'];?>,
+                            "to":<?php echo $fromToConfig['to'];?>,
+                            "min":<?php echo $fromToConfig['min'];?>,
+                            "max":<?php echo $fromToConfig['max'];?>,
+                            "url": "<?php echo $block->getSliderUrlTemplate(); ?>"
+                        }
+                }
+            }
+        </script>
+    </li>
+    <?php if ($filterSetting->getAddFromToWidget()) :?>
+        <li id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>">
+            <form>
+                <div class="range">
+                    <input class="amshopby-filter-price-from" data-validate="{
+                        'validate-number':true,
+                        'less-than-equals-to':'#<?php echo $_widgetTo ?>',
+                        'validate-digits-range': ['<?php echo $fromToConfig['min'];?>-<?php echo $fromToConfig['max'];?>']
+                    }" id="<?php echo $_widgetFrom;?>" name="<?php echo $_widgetFrom;?>" type="text" class="input-text" placeholder="<?php echo __('From')?>"/>
+                    <input class="amshopby-filter-price-to right" data-validate="{
+                        'validate-number':true,
+                        'greater-than-equals-to':'#<?php echo $_widgetFrom ?>',
+                        'validate-digits-range': ['<?php echo $fromToConfig['min'];?>-<?php echo $fromToConfig['max'];?>']
+                    }" id="<?php echo $_widgetTo;?>" name="<?php echo $_widgetTo;?>" type="text" class="input-text" placeholder="<?php echo __('To')?>"/>
+                </div>
+            </form>
+        </li>
+        <script type="text/x-magento-init">
+        {
+            "#am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>": {
+                "amShopbyFilterFromTo": {
+                        "from":"<?php echo $fromToConfig['from'];?>",
+                        "to":"<?php echo $fromToConfig['to'];?>",
+                        "min":"<?php echo $fromToConfig['min'];?>",
+                        "max":"<?php echo $fromToConfig['max'];?>",
+                        "slider": "#am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>_slider",
+                        "sliderDefaultLabel": "#am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>_display",
+                        "url": "<?php echo $block->getSliderUrlTemplate(); ?>"
+                    }
+            }
+        }
+        </script>
+    <?php endif;?>
+</ol>
+
+<?php if($filterSetting->isShowTooltip()): ?>
+    <?php
+    $tooltipTemplate = '<span class="tooltip amshopby-filter-tooltip" style="float:right" title="{content}"><img src="'.$tooltipUrl.'"</img></span>';
+    ?>
+    <script type="text/x-magento-init">
+            {
+                ".am_shopby_filter_items_<?=$filterSetting->getFilterCode()?>": {
+                    "amShopbyFilterAddTooltip": {
+                        "content": <?=json_encode($filterSetting->getTooltip())?>,
+                        "tooltipTemplate": <?=json_encode($tooltipTemplate)?>
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>

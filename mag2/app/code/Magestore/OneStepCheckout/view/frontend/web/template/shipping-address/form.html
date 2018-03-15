@@ -1,0 +1,70 @@
+<!--
+  ~ /**
+  ~  Copyright © 2016 Magestore. All rights reserved.
+  ~  See COPYING.txt for license details.
+  ~  */
+  -->
+<form class="form form-shipping-address" id="co-shipping-form" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+    <!-- ko foreach: getRegion('before-fields') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+    <div id="shipping-new-address-form" class="fieldset address">
+        <!-- ko foreach: getRegion('additional-fieldsets')-->
+            <!-- ko if:$parent.sortFields($data) -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        <!--/ko-->
+        <!-- ko if: !(isCustomerLoggedIn) -->
+        <div class="field choice checkbox-group">
+            <input type="checkbox" class="checkbox" id="create-new-account" onclick="showCreateAccount();" />
+            <label class="label label--checkbox" for="create-new-account">
+                <span class="check"></span>
+                <span class="box-check"></span>
+                <strong>Create Account</strong>
+            </label>
+        </div>
+        <div class="password-box" style="float: left;display:none;">
+            <div class="field _required two-fields password-field">
+                <div class="control">
+                <label class="label" for="password">
+                    <span>Password</span>
+                    <em class="required-symbol">*</em>
+                </label>
+                <input class="input-text required" name="password" id="password" type="password" data-password-min-length="<?php echo $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                       data-password-min-character-sets="6"
+                       data-validate="{required:true, 'validate-customer-password':true}"
+                       autocomplete="off"/>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <div class="mage-error password" for="password" generated="true" style="display: none;">This is a required field.</div>
+                </div>
+            </div>
+            <div class="field _required two-fields password-confirmation-field">
+                <div class="control">
+                <label class="label" for="confirm_password">
+                    <span>Confirm Password</span>
+                    <em class="required-symbol">*</em>
+                </label>
+                <input class="input-text required" name="password_confirmation" id="password_confirmation" data-validate="{required:true, equalTo:'#password'}" autocomplete="off" type="password" />
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <div class="mage-error confirm_password" generated="true" for="password_confirmation" style="display: none;">This is a required field.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- /ko -->
+        <!-- ko if: (isCustomerLoggedIn) -->
+        <div class="field choice checkbox-group" data-bind="visible: !isFormInline">
+            <input type="checkbox" class="checkbox" id="shipping-save-in-address-book" data-bind="checked: saveInAddressBook" />
+            <label class="label label--checkbox" for="shipping-save-in-address-book">
+                <span class="check"></span>
+                <span class="box-check"></span>
+                <strong data-bind="i18n: 'Save in address book'"></strong>
+            </label>
+        </div>
+        <!-- /ko -->
+        <div data-bind="afterRender:initGoogleAddress"></div>
+    </div>
+</form>
+  

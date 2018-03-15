@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+?>
+
+<?php if ($block->canShowBlock()): ?>
+<div class="widget block block-static-block">
+    <?php echo $block->getChildHtml('state') ?>
+
+    <?php if ($block->getLayer()->getState()->getFilters()): ?>
+        <div class="block-actions filter-actions">
+            <a href="<?php /* @escapeNotVerified */ echo $block->getClearUrl() ?>" class="action clear filter-clear"><span><?php /* @escapeNotVerified */ echo __('Clear All') ?></span></a>
+        </div>
+    <?php endif; ?>
+    
+    <div class="categories-menu">
+        <?php $wrapOptions = false; ?>
+        <?php foreach ($block->getFilters() as $filter): ?>
+                <?php if ($filter->getItemsCount()): ?>
+                    <strong class="title"><span><?php echo $block->escapeHtml(__($filter->getName())) ?></span></strong>
+                    <?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?>
+                <?php endif; ?>
+        <?php endforeach; ?>
+           
+    </div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_OneStepCheckout
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magestore\OneStepCheckout\Block\OneStep\Shipping $block */
+?>
+<?php if ($block->isShowShippingAddress()): ?>
+<div style="display: block;" class="shipping_address" id="showhide_shipping">
+    <h3 class="step_1" id="shipping_step_header"><?php echo __('Shipping Address') ?></h3>
+    <?php if ($block->customerHasAddresses()): ?>
+        <p class="label"><?php echo __('Select a shipping address from your address book or enter a new address.') ?></p>
+        <ul><li><div class="mdl-selectfield has-address"><?php echo $block->getAddressesHtmlSelect('shipping') ?></div></li></ul>
+    <?php endif ?>
+    <fieldset id="shipping-new-address-form"
+              class="group-select new-address-form"
+              style="<?php echo $block->customerHasAddresses() ? 'display: none;': ''?>" >
+        <input type="hidden" id="shipping:address_id" value="<?php echo $block->getShippingAddress()->getId() ?>" name="shipping[address_id]">
+        <form id="shipping-address-form" class="shipping-address-form" action="">
+            <ul>
+            <?php echo $block->getChildHtml() ?>
+            <?php if($block->canShowPasswordSection()) : ?>
+                <li class="create_account">
+                    <div class="checkbox-group">
+                        <input id="create_account_checkbox_id" name="create_account_checkbox" value="0" class="create-account-checkbox checkbox osc-additional-data" type="checkbox">
+                        <label for="create_account_checkbox_id" class="label--checkbox">
+                            <span class="check"></span>
+                            <span class="box-check"></span>
+                            <?php echo __('Create an account for later use') ?></label>
+                    </div>
+                </li>
+                <li id="password_section_id" class="password-section" style="display: none;">
+                    <div class="two-fields">
+                        <input name="shipping[customer_password]" id="shipping:customer_password"
+                               title="Password" class="input-text required-entry validate-password customer-password osc-additional-data" required="" type="password">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="required" for="shipping:customer_password"><?php echo __('Password') ?> <em>*</em></label>
+                    </div>
+                    <div class="two-fields last">
+                        <input name="shipping[confirm_password]" title="Confirm Password"
+                               id="shipping:confirm_password" class="input-text required-entry validate-cpassword confirm-password osc-additional-data" required="" type="password">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="required" for="shipping:confirm_password"><?php echo __('Confirm Password') ?> <em>*</em></label>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->isCustomerLoggedIn() && $block->customerHasAddresses()): ?>
+                <li class="control save-address">
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="checkbox" name="shipping[save_in_address_book]"
+                               data-field-id="save_in_address_book"
+                               value="<?php echo $block->getShippingAddress()->getSaveInAddressBook() ? '1' : '0' ?>"
+                               title="<?php echo __('Save in address book') ?>"
+                                <?php if ($block->getShippingAddress()->getSaveInAddressBook()): ?> checked="checked"<?php endif; ?>
+                               id="shipping:save_in_address_book"/>
+                        <label for="shipping:save_in_address_book" class="label--checkbox">
+                            <span class="check"></span>
+                            <span class="box-check"></span><?php echo __('Save in address book') ?>
+                        </label>
+                    </div>
+                </li>
+            <?php else: ?>
+                <li><input type="hidden" data-field-id="save_in_address_book" name="shipping[save_in_address_book]" value="1" /></li>
+            <?php endif; ?>
+        </ul>
+        </form>
+    </fieldset>
+</div>
+<?php endif; ?>

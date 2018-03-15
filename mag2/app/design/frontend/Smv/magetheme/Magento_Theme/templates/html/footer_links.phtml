@@ -1,0 +1,109 @@
+<div class="footer-bottom">
+    <div class="content">
+        <div class="footer-content row">
+            <div class="box-footer box-cat col-xs-12 col-sm-8 col-md-8">
+                <div class="row">
+                    <?php
+                        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                        $categoryCollection = $objectManager->create('Magento\Catalog\Model\Category');
+                        $category = $categoryCollection->load(3);
+                        $childCategories = $category->getChildrenCategories();
+                        $columnCount = 6;
+                    ?>
+                    <?php $i = 0; foreach ($childCategories as $_category): ?>
+                    <?php 
+                        $_category = $objectManager->create('Magento\Catalog\Model\Category')->load($_category->getId());
+                        if($_category->getData('include_in_menu') == 0){continue;} 
+                    ?>
+                    <div class="col-xs-12 col-sm-3 col-md-3 column">
+                        <ul>
+                            <a class="level0" href="<?php echo $_category->getUrl(); ?>" title="<?php echo $_category->getName(); ?>"><?php echo $_category->getName(); ?></a>
+                            <?php
+                                $subChildCategories = $_category->getChildrenCategories();
+                                if(count($subChildCategories)):
+                            ?>
+                            <?php $i = 0; foreach ($subChildCategories as $_subCategory): ?>   
+                            <?php 
+                                $_subCategory = $objectManager->create('Magento\Catalog\Model\Category')->load($_subCategory->getId());
+                                if($_subCategory->getData('include_in_menu') == 0){continue;} 
+                            ?>
+                                <li><a href="<?php echo $_subCategory->getUrl(); ?>" title="<?php echo $_subCategory->getName(); ?>"><?php echo $_subCategory->getName(); ?></a></li>
+                            
+                            <?php endforeach; ?>
+                            <?php endif; ?> 
+                        </ul>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="box-footer box-accept col-xs-12 col-sm-2 col-md-2">
+                <h3>My Account</h3>
+                <ul>
+					<?php
+					$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+					$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+					if (!$customerSession->isLoggedIn()):
+						?>
+						<p><a href="<?php echo $this->getUrl('customer/account/login'); ?>" title="LOGIN">Login</a><a href="<?php echo $this->getUrl('customer/account/create'); ?>" title="SIGN UP">Sign Up</a></p>
+					<?php endif; ?>
+					<li><a href="<?php echo $this->getUrl('customer/account'); ?>" title="My Account Info">My Account Info</a></li>
+					<li><a href="<?php echo $this->getUrl('sales/order/history'); ?>" title="My Order">My Order</a></li>
+					<li><a href="<?php echo $this->getUrl('wishlist'); ?>" title="My Wishlist">My Wishlist</a></li>
+					<li><a href="<?php echo $this->getUrl('customer/account/edit/changepass/1'); ?>" title="Change Password">Change Password</a></li>
+				</ul>
+            </div>
+			<div class="box-footer box-acc col-xs-12 col-sm-2 col-md-2">
+                <?php //echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer_links')->toHtml();?>
+				<h3>Customer service</h3>
+				<ul>
+					<li><a href="https://www.vicoffroad.com.au/payment-methods" title="Payments">Payment</a></li>
+					<li><a href="https://www.vicoffroad.com.au/delivery-shipping" title="Shipping">Shipping</a></li>
+					<li><a href="https://www.vicoffroad.com.au/returns-exchange" title="Returns">Returns</a></li>
+                    <li><a href="https://www.vicoffroad.com.au/warranty" title="Warranty">Warranty</a></li>
+					<li><a href="https://www.vicoffroad.com.au/about-us" title="About Us">About Us</a></li>
+					<li><a href="https://www.vicoffroad.com.au/contact" title="Contact Us" class="contact"><span>Contact Us</span></a></li>
+					<li class="social">
+						<a target="_blank" href="https://www.facebook.com/vicoffroadau" title="facebook"><img alt="Facebook" src="https://www.vicoffroad.com.au/pub/media/wysiwyg/vor-icon-facebook.png"></a> 
+						<a target="_blank" href="https://www.youtube.com/channel/UC3Y-Lus7eqbXkECHsP58H2Q" title="youtube"><img alt="Youtube" src="https://www.vicoffroad.com.au/pub/media/wysiwyg/vor-icon-youtube.png"></a>
+						<a target="_blank" href="https://www.instagram.com/vicoffroad_australia/" title="Instagram"><img alt="Instagram" src="https://www.vicoffroad.com.au/pub/media/wysiwyg/instagram.png"></a>
+						<a target="_blank" href="https://twitter.com/vicoffroad" title="Twitter"><img alt="Twitter" src="https://www.vicoffroad.com.au/pub/media/wysiwyg/twitter.png"></a>
+						<a target="_blank" href="https://plus.google.com/u/0/103402018394298496241" title="Google+"><img alt="Twitter" src="https://www.vicoffroad.com.au/pub/media/wysiwyg/google+.png"></a>
+					</li>
+				</ul>
+			</div>
+        </div>
+        
+    </div>
+</div>
+<div class="footer-bottom">
+        <div class="content">
+                <div class="footer-bottom-left">
+                        <a href="<?php echo $this->getUrl('');?>" class="footer-logo"><img src="<?php echo $block->getViewFileUrl('images/vor-footer-logo.png');?>" alt="VicOffRoad" /></a>
+                        <div id="eWAYBlock" style="display: inline-block; margin-right: 10px;">
+<div style="text-align: center;"><a title="eWAY Payment Gateway" href="https://www.eway.com.au/secure-site-seal?i=12&amp;s=3&amp;pid=381a0fa7-a1a6-4026-8300-10dcef758fca&amp;theme=0" rel="nofollow" target="_blank"> <img src="https://www.eway.com.au/developer/payment-code/verified-seal.ashx?img=12&amp;size=3&amp;pid=381a0fa7-a1a6-4026-8300-10dcef758fca&amp;theme=0" alt="eWAY Payment Gateway" width="200px" /> </a></div>
+</div>
+						<script type="text/javascript" src="//smarticon.geotrust.com/si.js"></script>
+                </div>
+                <div class="footer-bottom-right">
+                        <div class="footer-copy">
+                                <p><span>Copyright Vicoffroad </span><a href="<?php echo $this->getUrl('terms-conditions');?>" title="Terms & Conditions">Terms & Conditions</a>|<a href="<?php echo $this->getUrl('privacy');?>" title="Privacy Policy">Privacy Policy</a></p>
+                                
+                        </div>
+                </div>
+        </div>
+</div>
+<!-- end footer-bottom -->
+<script type="text/javascript">
+    
+            function showCreateAccount(){
+                require(['jquery'], function($){
+                if ($('#create-new-account:checkbox:checked').length > 0) {
+                    $('.password-box').show();
+                }else{
+                    $('.password-box').hide();
+                }
+                
+        });
+            }
+      </script>
+    

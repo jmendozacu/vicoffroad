@@ -1,0 +1,18 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\Sidebar\Recent */
+?>
+<?php
+    $posts = $block->getPostCollection();
+?>
+<?php if ($posts->getSize()): ?>
+<div class="aw-blog-sidebar__block aw-blog-sidebar-block">
+    <h3 class="aw-blog-sidebar-block__title"><?php echo __('Recent posts') ?></h3>
+    <div class="aw-blog-sidebar-block__content">
+        <ul class="aw-block-recent-posts">
+            <?php foreach ($posts as $post): ?>
+                <li class="aw-block-recent-posts__item"><a href="<?php echo $block->getPostUrl($post) ?>" class="aw-block-recent-posts__link"><?php echo $post->getTitle() ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<?php endif; ?>

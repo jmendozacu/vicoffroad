@@ -1,0 +1,23 @@
+.owl-carousel .product-item {padding: 20px !important;width: 100% !important;margin: 0 !important;}
+.owl-carousel .product-item img{display: block;height: auto !important;max-width: 100% !important;text-align: center;width: 100% !important;margin: 0px auto;}
+
+/*This for for loaded the images background*/
+.owl-carousel .owl-controls .owl-buttons div {
+  background-image: url('../images/default-arrow.png');
+}
+
+.ub-style-1 .owl-controls .owl-buttons div {
+  background-image: url('../images/image-arrow.png');
+}
+
+.owl-carousel .owl-pagination .owl-page span{
+	background-image: url('../images/default-item-pagination.png');
+}
+
+.ub-style-1 .owl-controls .owl-page span {
+	background-image: url('../images/default-item-pagination.png');
+}
+
+.thumb-items .owl-item.synced:before {
+	background-image: url('../images/active-thumb-arrow.png'); 
+}

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ * @var $block \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+    <div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+                {
+                    "#cart-totals": {
+                        "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout();?>
+                    }
+                }
+        </script>
+    </div>
+    <div class="bt-pay"><a href="<?php echo $this->getUrl('checkout');?>" title="Pay Securely Now">Pay Securely Now</a></div>
+    <div class="bt-paypal"><a href="<?php echo $this->getUrl('checkout');?>" title="Buy now it paypal"><img src="<?php echo $block->getViewFileUrl('images/MH-icon-paypal.png');?>" title="Buy now it paypal" alt="Buy now it paypal" /></a></div>
+    <div class="icon-payment">
+            <a href="#" title=""><img src="<?php echo $block->getViewFileUrl('images/MH-accept-1.png');?>" title="" alt="" /></a>
+            <a href="#" title=""><img src="<?php echo $block->getViewFileUrl('images/MH-accept-2.png');?>" title="" alt="" /></a>
+            <a href="#" title=""><img src="<?php echo $block->getViewFileUrl('images/MH-accept-3.png');?>" title="" alt="" /></a>
+        </div>

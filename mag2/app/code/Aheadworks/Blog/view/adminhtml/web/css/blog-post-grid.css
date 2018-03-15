@@ -1,0 +1,12 @@
+.aw-blog-admin-post-index .post-title a{
+    font-weight: 600;
+}
+.aw-blog-admin-post-index .post-status .published {
+    color: #00bb2a;
+}
+.aw-blog-admin-post-index .post-status .scheduled {
+    color: #00b2ff;
+}
+.aw-blog-admin-post-index .post-publish_date .scheduled {
+    color: #00b2ff;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+    <referenceContainer name="page.wrapper">
+        <container name="header.panel.wrapper" htmlClass="" htmlTag="div" before="-">
+                <container name="header-wrapper" label="Page Header" as="header-wrapper" htmlTag="div" htmlClass="header content">
+                    <block class="Magento\Theme\Block\Html\Header" name="header-content" template="Magento_Theme::html/header.phtml">
+                        <block class="Magento\Checkout\Block\Cart\Sidebar" name="minicart2" as="minicart2" after="logo" template="cart/minicart.phtml">
+                            <arguments>
+                                <argument name="jsLayout" xsi:type="array">
+                                    <item name="types" xsi:type="array"/>
+                                    <item name="components" xsi:type="array">
+                                        <item name="minicart_content" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/minicart</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">Magento_Checkout/minicart/content</item>
+                                            </item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="subtotal.container" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="displayArea" xsi:type="string">subtotalContainer</item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="subtotal" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Magento_Checkout/minicart/subtotal</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="extra_info" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="displayArea" xsi:type="string">extraInfo</item>
+                                                    </item>
+                                                </item>
+                                                <item name="promotion" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="displayArea" xsi:type="string">promotion</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </container>
+            </container>
+    </referenceContainer>
+</layout>

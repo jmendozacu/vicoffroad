@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Template" name="aw_blog_sidebar" before="-" template="Aheadworks_Blog::sidebar.phtml">
+                <block class="Aheadworks\Blog\Block\Post" name="aw_blog_sidebar.category" as="blog_category" template="sidebar/category.phtml" />
+                <block class="Aheadworks\Blog\Block\Sidebar\Tags" name="aw_blog_sidebar.tags" as="tags" template="sidebar/tags.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

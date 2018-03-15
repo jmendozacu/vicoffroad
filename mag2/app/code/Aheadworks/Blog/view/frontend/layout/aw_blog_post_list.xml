@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="disqus"/>
+    <body>
+        <referenceContainer name="aw-blog.main">
+            <block class="Aheadworks\Blog\Block\PostList" name="aw_blog_post.list" template="post/list.phtml">
+                <block class="Aheadworks\Blog\Block\PostList\Pager" name="aw_blog_post.list.pager" as="pager" template="Aheadworks_Blog::post/list/pager.phtml" cacheable="false" />
+            </block>
+        </referenceContainer>
+        <referenceBlock name="page.main.title" remove="true"/>
+    </body>
+</page>

@@ -1,0 +1,14 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\Disqus */
+?>
+<?php if ($block->commentsEnabled()): ?>
+    <script>
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.id = 'dsq-count-scr';
+            s.async = true;
+            s.src = '//<?php echo $block->getDisqusForumCode() ?>.disqus.com/count.js';
+            d.body.appendChild(s);
+        })();
+    </script>
+<?php endif; ?>

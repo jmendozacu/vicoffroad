@@ -1,0 +1,78 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2016 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\Shopby\Model\FilterSetting $filterSetting */
+/** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+?>
+<ol class="items am_shopby_filter_items_<?=$filterSetting->getFilterCode();?>">
+    <li>
+        <?php if (count($filterItems) > 0) :?>
+        <select class="am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>">
+            <option value="<?php echo $block->escapeUrl($this->getClearUrl()) ?>">&nbsp;</option>
+            <?php foreach ($filterItems as $filterItem):
+                $disabled = ($filterItem->getCount() == 0) ? ' disabled' : "";
+                $selected = ($this->checkedFilter($filterItem)) ? ' selected' : "";
+                $url = $block->escapeUrl($filterItem->getUrl());
+                $label = $filterItem->getLabel();
+                if ($filterSetting->isShowProductQuantities()) {
+                    $label .= ' <span class="count">(' . $filterItem->getCount() . ')</span>';
+                }
+                ?>
+                <option value="<?php echo $url ?>" <?php echo $disabled . $selected ?>><?php echo $label ?></option>
+            <?php endforeach ?>
+            <script type="text/x-magento-init">
+            {
+                ".am_shopby_filter_<?php echo $filterSetting->getFilterCode(); ?>": {
+                    "amShopbyFilterDropdown": {"currentValue":<?php echo 1 ?>}
+                }
+            }
+            </script>
+        </select>
+        <?php endif; ?>
+    </li>
+    <?php if ($filterSetting->getAddFromToWidget() && isset($fromToConfig) && is_array($fromToConfig)) :?>
+        <li id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>">
+            <form>
+                <div class="range">
+                    <input class="amshopby-filter-price-from" data-validate="{'validate-number':true}" id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>_from" type="text" class="input-text" placeholder="<?php echo __('From')?>"/>
+                    <input class="amshopby-filter-price-to" data-validate="{'validate-number':true}" id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>_to" type="text" class="input-text" placeholder="<?php echo __('To')?>"/>
+                    <button class="amshopby-filter-price-go" id="am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>_go"><?php echo __('Go')?></button>
+                </div>
+            </form>
+        </li>
+        <script type="text/x-magento-init">
+        {
+            "#am_shopby_filter_widget_<?php echo $filterSetting->getFilterCode(); ?>": {
+                "amShopbyFilterFromTo": {
+                        "from":"<?php echo $fromToConfig['from'];?>",
+                        "to":"<?php echo $fromToConfig['to'];?>",
+                        "min":"<?php echo $fromToConfig['min'];?>",
+                        "max":"<?php echo $fromToConfig['max'];?>",
+                        "url": "<?php echo $block->getSliderUrlTemplate(); ?>"
+                    }
+            }
+        }
+        </script>
+    <?php endif;?>
+</ol>
+
+<?php if($filterSetting->isShowTooltip()): ?>
+    <?php
+    $tooltipTemplate = '<span class="tooltip amshopby-filter-tooltip" style="float:right" title="{content}"><img src="'.$tooltipUrl.'"</img></span>';
+    ?>
+    <script type="text/x-magento-init">
+            {
+                ".am_shopby_filter_items_<?=$filterSetting->getFilterCode()?>": {
+                    "amShopbyFilterAddTooltip": {
+                        "content": <?=json_encode($filterSetting->getTooltip())?>,
+                        "tooltipTemplate": <?=json_encode($tooltipTemplate)?>
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>

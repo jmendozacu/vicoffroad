@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="onestepcheckout-index-index"/>
+        <attribute name="class" value="page-layout-checkout"/>
+        <attribute name="class" value="page-layout-cart"/>
+        <referenceBlock name="minicart" remove="false"/>
+        <referenceContainer name="header.panel" remove="false"/>
+        <referenceBlock name="top.search" remove="false"/>
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="false"/>
+        <referenceContainer name="footer-container" remove="false"/>
+    </body>
+</page>

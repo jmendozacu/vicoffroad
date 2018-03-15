@@ -1,0 +1,23 @@
+<?php
+/* @var $block \Aheadworks\Blog\Block\Post */
+?>
+<?php
+    $post = $block->getPostModel();
+    $categories = $block->getCategoryCollection();
+?>
+<?php if ($post): ?>
+<div class="blog-item">
+    <div class="title-blog">
+        <h3><a href="<?php echo $block->getPostUrl($post) ?>" class="aw-blog-post__title-link"><?php echo $post->getTitle() ?></a></h3>
+            <p>POST ON <span class="date-blog"><?php echo $block->formatDate($post->getPublishDate(), \IntlDateFormatter::MEDIUM) ?></span></p>
+    </div>
+    <div class="content-blog">
+            <?php echo $block->getContent($post) ?>
+        <?php if ($block->showReadMoreButton($post)): ?>
+            <a href="<?php echo $block->getPostUrl($post) ?>" title="Read more" class="read-more">Read more</a>
+            <?php endif; ?>
+    </div>
+</div>
+<!-- END blog-item -->
+    
+<?php endif; ?>

@@ -1,0 +1,80 @@
+"Category Filter Settings","Category Filter Settings"
+"[STORE VIEW]","[STORE VIEW]"
+General,General
+Featured,Featured
+"Display Properties","Display Properties"
+"Display Mode","Display Mode"
+"Add From-To Widget","Add From-To Widget"
+"Sort Options By","Sort Options By"
+"Show Product Quantities","Show Product Quantities"
+"Show Search Box","Show Search Box"
+"Number of unfolded options","Number of unfolded options"
+Expand,Expand
+Tooltip,Tooltip
+Filtering,Filtering
+"Allow Multiselect","Allow Multiselect"
+"Multiple Values Logic","Multiple Values Logic"
+"Hide filter when only one option available","Hide filter when only one option available"
+"Measure Units","Measure Units"
+"Unit label","Unit label"
+"Slider Step","Slider Step"
+"Visible in Categories","Visible in Categories"
+Categories,Categories
+"Show only when any option of attributes below is selected","Show only when any option of attributes below is selected"
+"Show only if the following option is selected","Show only if the following option is selected"
+"Comma separated options ids","Comma separated options ids"
+"You saved the item.","You saved the item."
+"Something went wrong while saving the item data. Please review the error log.","Something went wrong while saving the item data. Please review the error log."
+"Layer Filter applied with multiple parameters, but multiselect restricted for the filter.","Layer Filter applied with multiple parameters, but multiselect restricted for the filter."
+"%1 and above","%1 and above"
+"%1 - %2","%1 - %2"
+"%1 stars & up","%1 stars & up"
+"%1 star & up","%1 star & up"
+"%1 stars","%1 stars"
+"Not Yet Rated","Not Yet Rated"
+"In Stock","In Stock"
+"Out of Stock","Out of Stock"
+"Bucket does not exist","Bucket does not exist"
+Default,Default
+Dropdown,Dropdown
+Ranges,Ranges
+Slider,Slider
+"From-To Only","From-To Only"
+Sidebar,Sidebar
+Top,Top
+"Store Currency","Store Currency"
+"Custom label","Custom label"
+"Show products with ANY value","Show products with ANY value"
+"Show products with ALL values only","Show products with ALL values only"
+Yes,Yes
+No,No
+Position,Position
+Name,Name
+"Visible Everywhere","Visible Everywhere"
+"Only in Selected Categories","Only in Selected Categories"
+"Hide in Selected Categories","Hide in Selected Categories"
+"Improved Navigation","Improved Navigation"
+Loading...,Loading...
+Settings,Settings
+"Use Default Value","Use Default Value"
+"Select Options","Select Options"
+Search,Search
+item,item
+items,items
+From,From
+To,To
+Go,Go
+More,More
+Less,Less
+"Please enter a valid price range.","Please enter a valid price range."
+"Improved Layered Navigation","Improved Layered Navigation"
+"Enable Ajax","Enable Ajax"
+"Handle Filters Collapsing","Handle Filters Collapsing"
+"Stock Filter","Stock Filter"
+Enabled,Enabled
+"If you want to show out of stock products, please configure it here: Stores->Configuration->Catalog->Inventory->Stock Options->Display Out of Stock Products","If you want to show out of stock products, please configure it here: Stores->Configuration->Catalog->Inventory->Stock Options->Display Out of Stock Products"
+Label,Label
+"Rating Filter","Rating Filter"
+"Category Filter","Category Filter"
+Tooltips,Tooltips
+"Tooltip Image","Tooltip Image"

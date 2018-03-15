@@ -1,0 +1,68 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+//$order = $this->_objectManager->create('Magento\Sales\Model\Order')->load($block->getOrderId());
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="checkout-success">
+    <?php if ($block->getOrderId()):?>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?php echo __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+        <?php  else :?>
+            <p><?php echo __('Your order # is: <span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+        <?php endif;?>
+            <p><?php /* @escapeNotVerified */ echo __('We\'ll email you an order confirmation with details and tracking info.') ?></p>
+    <?php endif;?>
+
+    <?php echo $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?php /* @escapeNotVerified */ echo $block->getUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+</div>
+<?php $objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+  $orderData = $objectManager->create('Magento\Sales\Model\Order')->loadByIncrementId($block->getOrderId());
+  $orderItems = $orderData->getAllItems();
+ //echo $orderData->getData('shipping_description'); //shipping_description
+?>
+<!-- START Google Trusted Stores Order -->
+<div id="gts-order" style="display:none;" translate="no">
+
+<!-- start order and merchant information -->
+<span id="gts-o-id"><?php echo $orderData->getData('increment_id'); ?></span>
+<span id="gts-o-email"><?php echo $orderData->getData('customer_email'); ?></span>
+<span id="gts-o-country">AU</span>
+<span id="gts-o-currency"><?php echo $orderData->getData('order_currency_code'); ?></span>
+<span id="gts-o-total"><?php echo $orderData->getData('subtotal_incl_tax'); ?></span>
+<span id="gts-o-discounts"><?php echo $orderData->getData('base_discount_amount'); ?></span>
+<span id="gts-o-shipping-total"><?php echo $orderData->getData('base_shipping_amount'); ?></span>
+<span id="gts-o-tax-total"><?php echo $orderData->getData('base_tax_amount'); ?></span>
+<!--<span id="gts-o-est-ship-date">ORDER_EST_SHIP_DATE</span>
+<span id="gts-o-est-delivery-date">ORDER_EST_DELIVERY_DATE</span>
+<span id="gts-o-has-preorder">HAS_BACKORDER_PREORDER</span>
+<span id="gts-o-has-digital">HAS_DIGITAL_GOODS</span>-->
+<!-- end order and merchant information -->
+
+<!-- start repeated item specific information -->
+<!-- item example: this area repeated for each item in the order -->
+<?php foreach($orderItems as $item):?>
+    <?php //print_r($item->getData());exit;?>
+<span class="gts-item">
+<span class="gts-i-name"><?php echo $item->getData('name'); ?></span>
+<span class="gts-i-price"><?php echo $item->getData('price'); ?></span>
+<span class="gts-i-quantity"><?php echo $item->getData('qty_ordered'); ?></span>
+<span class="gts-i-prodsearch-id">111022056</span>
+<span class="gts-i-prodsearch-store-id">716897</span>
+</span>
+<?php endforeach; ?>
+<!-- end item 1 example -->
+<!-- end repeated item specific information -->
+
+</div>
+<!-- END Google Trusted Stores Order -->

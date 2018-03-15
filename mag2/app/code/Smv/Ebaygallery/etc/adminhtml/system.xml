@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="fmeextesnions" translate="label" sortOrder="2001">
+            <label>Smv Ebaygallery</label>
+        </tab>
+      <section id="photogallery" translate="label" sortOrder="124" showInDefault="1" showInWebsite="1" showInStore="1">
+         <label>Photo Gallery</label>
+         <tab>fmeextesnions</tab>
+         <resource>Smv_Ebaygallery::config_photogallery</resource>
+        <group id="general" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+         <label>General Settings</label>
+            <field id="ebayID" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Ebay ID</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="ebayStore" translate="label" type="text" sortOrder="2" showInDefault="2" showInWebsite="2" showInStore="2">
+                <label>Ebay Store</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="devID" translate="label" type="text" sortOrder="3" showInDefault="3" showInWebsite="3" showInStore="3">
+                <label>Ebay Dev ID</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="appID" translate="label" type="text" sortOrder="4" showInDefault="4" showInWebsite="4" showInStore="4">
+                <label>Ebay App ID</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="certID" translate="label" type="text" sortOrder="5" showInDefault="5" showInWebsite="5" showInStore="5">
+                <label>Ebay Cert ID</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="token" translate="label" type="text" sortOrder="6" showInDefault="6" showInWebsite="6" showInStore="6">
+                <label>Ebay Token</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+        </group>
+   </section>
+</system>
+</config>

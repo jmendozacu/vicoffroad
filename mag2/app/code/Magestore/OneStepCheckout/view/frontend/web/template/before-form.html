@@ -1,0 +1,18 @@
+<!--
+  ~ /**
+  ~  Copyright © 2016 Magestore. All rights reserved.
+  ~  See COPYING.txt for license details.
+  ~  */
+  -->
+
+<!-- ko if: !isLogin() -->
+<li id='onestepcheckout_login_link' class="onestepcheckout-login-link" data-bind="visible: isShowLoginLink">
+    <div class="click-login">
+        <h5>Already registered?</h5>
+	<a href="javascript:void(0);" id="onestepcheckout-login-link"
+       data-bind="text: loginLinkTitle, click: showLoginForm">
+        </a>
+    </div>
+    
+</li>
+<!-- /ko  -->

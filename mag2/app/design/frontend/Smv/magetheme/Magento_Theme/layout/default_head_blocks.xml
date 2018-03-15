@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+        <css src="css/font-face.css" />
+        <css src="css/calendar.css" />
+        <css src="css/styles-m.css" />
+        <css src="css/styles-l.css"/>
+        <css src="css/style.css" />
+        <css src="css/style-media.css" />
+        <css src="css/bootstrap.min.css" />
+        <css src="css/font-awesome.min.css" />
+        <link src="https://fonts.googleapis.com/css?family=Play:400,700" src_type="url" /> 
+        
+        <script src="js/bootstrap.min.js"/>
+        <script src="js/jquery.flexisel.js"/>
+        <script src="js/module.js"/>
+        <script src="js/custom.js"/>
+    </head>
+</page>
